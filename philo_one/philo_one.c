@@ -22,10 +22,9 @@ void put_action_msg(int philo_num, int action)
   	gettimeofday(&tv, NULL); 
   	curtime=tv.tv_usec;
 
-	ft_putstr(ft_itoa(tv.tv_usec));
-	ft_putstr(" ");
 	ft_putstr(ft_itoa(philo_num));
-
+	ft_putstr(" ");
+	ft_putstr(ft_itoa(tv.tv_usec));
 
 	if (action == TAKEN_FORK)
 		write(1, " has taken a fork", 17);
@@ -39,25 +38,12 @@ void put_action_msg(int philo_num, int action)
 		write(1, " died", 17);
 }
 
-void	*printing_message(void *philo_num)
-{
-	struct timeval tv;
-
-  	time_t curtime;
-  	gettimeofday(&tv, NULL); 
-  	curtime=tv.tv_usec;
-
-	ft_putstr(ft_itoa(tv.tv_usec));
-	ft_putstr(" ");
-	ft_putstr(ft_itoa(philo_num));
-}
-
 int main(int argc, char **argv)
 {
 	pthread_t	thread;
 	int 		status;
 	int			status_addr;
-
+	t_args		args[ft_atoi(argv[1])];
 	if (argc != 5 && argc != 6)
 	{
 		ft_putstr("main error: wrong number of arguments\n");
@@ -65,14 +51,17 @@ int main(int argc, char **argv)
 	}
 	
 	int i = 0;
-	while (i < 2)
+	while (i < )
 	{
-		status = pthread_create(&thread, NULL, printing_message, i);
+		args[i].action = SLEEPING;
+		args[philo_num] = i;
+		status = pthread_create(&thread, NULL, put_action_msg, &args);
 		if (status != SUCCESS)
 		{
 			ft_putstr("main error: can't create thread\n");
 			exit(ERROR);
 		}
+		i++;
 	}
 	ft_putstr("Hello from main!\n");
 
@@ -83,6 +72,6 @@ int main(int argc, char **argv)
 		exit(ERROR);
 	}
 
-	ft_putstr("Joined!\n");
+	ft_putstr("\nJoined!\n");
 	return 0;
 }

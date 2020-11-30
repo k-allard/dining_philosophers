@@ -10,20 +10,33 @@
 #define SUCCESS		0
 #define ERROR		1
 
-typedef enum				e_action
+typedef enum		e_action
 {
-	TAKEN_FORK = 1,
+	TAKEN_LEFT_FORK,
+	TAKEN_RIGHT_FORK,
 	EATING,
 	SLEEPING,
 	THINKING,
 	DIED
-}							t_action;
+}					t_action;
+
+typedef struct		s_setup
+{
+
+}					t_setup;
+
+typedef struct		s_message 
+{
+	int				time;
+	int				philo_num;
+    t_action		action;
+}					t_message;
 
 /*
 ** UTILS
 */
 
-char		*ft_itoa(int n);
+char				*ft_itoa(int n);
 
 
 #endif

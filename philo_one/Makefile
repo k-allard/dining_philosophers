@@ -31,6 +31,7 @@ fclean: clean
 
 
 re: fclean all
+	@./${NAME} 4 410 200 200 5
 
 test: re
 
