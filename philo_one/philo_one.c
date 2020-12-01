@@ -40,16 +40,11 @@ void put_action_msg(int philo_num, int action)
 
 int main(int argc, char **argv)
 {
-	pthread_t	thread;
-	int 		status;
-	int			status_addr;
-	t_args		args[ft_atoi(argv[1])];
-	if (argc != 5 && argc != 6)
-	{
-		ft_putstr("main error: wrong number of arguments\n");
-		exit(ERROR);
-	}
-	
+    t_setup		setup;		//структура настроек
+	t_philo		*philos;	//структуры для философов
+
+	init_setup_struct(&setup, argc, argv);
+
 	int i = 0;
 	while (i < )
 	{
