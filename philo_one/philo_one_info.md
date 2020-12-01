@@ -1,4 +1,4 @@
-Permitted functions :  
+## :star: Permitted functions :  
 __memset__, malloc, free, write, __usleep__, __gettimeofday__, __pthread_create__, 
 __pthread_detach__, __pthread_join__, __pthread_mutex_init__, __pthread_mutex_destroy__, 
 __pthread_mutex_lock__, __pthread_mutex_unlock__
@@ -49,3 +49,49 @@ until it is unlocked by the thread who locked it.
 `int pthread_mutex_unlock(pthread_mutex_t *mutex);`  
 `int pthread_mutex_destroy(pthread_mutex_t *mutex);`  
 The first function above `releases the lock` and the second function `destroys the lock` so that it cannot be used anywhere in future.
+
+## :star: Mutex usage pattern
+
+```
+#include <pthread.h>
+
+pthread_t tid[2];
+pthread_mutex_t lock;
+
+void *func_that_does_smth(void *args)
+{
+    pthread_mutex_lock(&lock);
+
+   /* Does something */
+
+    pthread_mutex_unlock(&lock);
+    return (NULL);
+}
+
+int main(void)
+{
+    int i = 0;
+    int err;
+
+    if (pthread_mutex_init(&lock, NULL) != 0)
+    {
+        // Mutex init error
+        return (1);
+    }
+
+    while (i < 2)
+    {
+        err = pthread_create(&(tid[i]), NULL, &func_that_does_smth, NULL);
+        if (err)
+            // Thread create error
+        i++;
+    }
+
+    pthread_join(tid[0], NULL);
+    pthread_join(tid[1], NULL);
+
+    pthread_mutex_destroy(&lock);
+
+    return (0);
+}
+```
