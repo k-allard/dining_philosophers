@@ -22,6 +22,9 @@ typedef enum		e_action
 
 typedef struct		s_setup
 {
+	pthread_mutex_t	*forks;	//вилочные мьютексы = кол-ву философов
+
+	struct timeval	start;			//время старта симуляции
 	unsigned  int	num_of_philos;	//argv[1]
 	unsigned  int	time_to_die;	//argv[2]
 	unsigned  int	time_to_eat;	//argv[3]
@@ -31,7 +34,10 @@ typedef struct		s_setup
 
 typedef struct		s_philo
 {
+	int				index;		//порядковый номер философа
+	t_setup			*setup;
 	int				actions[6];
+
 }					t_philo;
 
 typedef struct		s_message 
@@ -46,9 +52,24 @@ typedef struct		s_message
 */
 
 void	init_setup_struct(t_setup *setup, int argc, char **argv);
+void	init_philo_structs(t_philo *philos, t_setup *setup);
+
+/*
+** TIME
+*/
 
 /*
 ** LAUNCH
+*/
+
+/*
+** PHILO_LIFE
+*/
+
+void	*philo_entry_function(void *argument);
+
+/*
+** SUPERVISOR
 */
 
 /*

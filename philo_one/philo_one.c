@@ -42,31 +42,37 @@ int main(int argc, char **argv)
 {
     t_setup		setup;		//структура настроек
 	t_philo		*philos;	//структуры для философов
+	int i;
 
 	init_setup_struct(&setup, argc, argv);
-
-	int i = 0;
-	while (i < )
-	{
-		args[i].action = SLEEPING;
-		args[philo_num] = i;
-		status = pthread_create(&thread, NULL, put_action_msg, &args);
-		if (status != SUCCESS)
-		{
-			ft_putstr("main error: can't create thread\n");
-			exit(ERROR);
-		}
-		i++;
-	}
-	ft_putstr("Hello from main!\n");
-
-	status = pthread_join(thread, (void**)&status_addr);
-	if (status != SUCCESS)
-	{
-		ft_putstr("main error: can't join thread\n");
-		exit(ERROR);
-	}
-
-	ft_putstr("\nJoined!\n");
-	return 0;
+	philos = malloc(sizeof(t_philo) * setup.num_of_philos);	//выделяем память под структуры философов
+	i = 0;
+	while (i < setup.num_of_philos)
+		pthread_mutex_init(&(setup.forks[i++]), NULL);	//вилочные мьютексы = кол-ву философов
+	init_philo_structs(philos, &setup);
+	gettimeofday(&setup.start, NULL);
+	launch_philos(setup, philos);
+//	while (i < )
+//	{
+//		args[i].action = SLEEPING;
+//		args[philo_num] = i;
+//		status = pthread_create(&thread, NULL, put_action_msg, &args);
+//		if (status != SUCCESS)
+//		{
+//			ft_putstr("main error: can't create thread\n");
+//			exit(ERROR);
+//		}
+//		i++;
+//	}
+//	ft_putstr("Hello from main!\n");
+//
+//	status = pthread_join(thread, (void**)&status_addr);
+//	if (status != SUCCESS)
+//	{
+//		ft_putstr("main error: can't join thread\n");
+//		exit(ERROR);
+//	}
+//
+//	ft_putstr("\nJoined!\n");
+//	return 0;
 }
