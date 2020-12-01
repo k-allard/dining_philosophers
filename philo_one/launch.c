@@ -12,5 +12,4 @@ void	launch_philos(t_setup setup, t_philo *philos)
 		pthread_detach(thr);
 		i++;
 	}
-
 }

@@ -25,11 +25,12 @@ typedef struct		s_setup
 	pthread_mutex_t	*forks;	//вилочные мьютексы = кол-ву философов
 
 	struct timeval	start;			//время старта симуляции
-	unsigned  int	num_of_philos;	//argv[1]
-	unsigned  int	time_to_die;	//argv[2]
-	unsigned  int	time_to_eat;	//argv[3]
-	unsigned  int	time_to_sleep;	//argv[4]
-	unsigned  int	max_eat_cycles;	//argv[5]
+	int				num_of_philos;	//argv[1]
+	uint64_t		time_to_die;	//argv[2] используем тип лонг лонг беззнаковый так как время в МИКРОсекундах
+	uint64_t		time_to_eat;	//argv[3]
+	uint64_t		time_to_sleep;	//argv[4]
+	int				max_eat_cycles;	//argv[5]
+	int				can_stop;
 }					t_setup;
 
 typedef struct		s_philo
@@ -58,9 +59,13 @@ void	init_philo_structs(t_philo *philos, t_setup *setup);
 ** TIME
 */
 
+uint64_t	time_passed(struct timeval start);
+
 /*
 ** LAUNCH
 */
+
+void	launch_philos(t_setup setup, t_philo *philos);
 
 /*
 ** PHILO_LIFE

@@ -20,8 +20,9 @@ Returns:
 `int gettimeofday(struct timeval *tv, struct timezone *tz);`  
 struct   `timeval` {  
      long    tv_sec;         // secs  
-     long    tv_usec;        // microsecs  
+     long    tv_usec;        // microsecs   
 };  
+This means that `tv_sec` seconds have passed and THEN `tv_usec` microseconds.
 
 :round_pushpin:  __pthread_create__ - creating a thread  
 `int pthread_create(pthread_t *thread, const pthread_attr_t *attr,  
