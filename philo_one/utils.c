@@ -74,3 +74,28 @@ int			ft_atoi(char *str)
 	}
 	return (sign * result);
 }
+
+int		ft_strlen(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+void	ft_putnbr(int n)
+{
+	char ch;
+
+	if (n < 0)
+	{
+		write(1, "-", 1);
+		n = -n;
+	}
+	if (n / 10 > 0)
+		ft_putnbr(n / 10);
+	ch = n % 10 + '0';
+	write(1, &ch, 1);
+}

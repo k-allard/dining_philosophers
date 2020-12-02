@@ -22,8 +22,8 @@ typedef enum		e_action
 
 typedef struct		s_setup
 {
-	pthread_mutex_t	*forks;	//вилочные мьютексы = кол-ву философов
-
+	pthread_mutex_t	*forks;		//вилочные мьютексы = кол-ву философов
+	pthread_mutex_t	writing; 	//чтобы одновременно не писали статусы
 	struct timeval	start;			//время старта симуляции
 	int				num_of_philos;	//argv[1]
 	uint64_t		time_to_die;	//argv[2] используем тип лонг лонг беззнаковый так как время в МИКРОсекундах
@@ -77,12 +77,18 @@ void	*philo_entry_function(void *argument);
 ** SUPERVISOR
 */
 
+void	what_status(t_philo *philo, int time);
+void	write_status(int time, int philo_id, char *action, pthread_mutex_t *writing);
+void	set_action(t_philo *philo, int action);
+
 /*
 ** UTILS
 */
 
 char				*ft_itoa(int n);
 int					ft_atoi(char *str);
+int					ft_strlen(char *str);
+void				ft_putnbr(int n);
 
 
 
