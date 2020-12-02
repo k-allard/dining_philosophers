@@ -38,10 +38,10 @@ typedef struct		s_philo
 	int				index;		//порядковый номер философа
 	t_setup			*setup;
 	int				actions[6];
-
+	pthread_mutex_t has_eaten_enough_times;
 }					t_philo;
 
-typedef struct		s_message 
+typedef struct		s_message
 {
 	int				time;
 	int				philo_num;

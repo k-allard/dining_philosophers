@@ -19,7 +19,7 @@ void put_action_msg(int philo_num, int action)
   	struct timeval tv;
 
   	time_t curtime;
-  	gettimeofday(&tv, NULL); 
+  	gettimeofday(&tv, NULL);
   	curtime=tv.tv_usec;
 
 	ft_putstr(ft_itoa(philo_num));
@@ -38,6 +38,19 @@ void put_action_msg(int philo_num, int action)
 		write(1, " died", 17);
 }
 
+void	wait_eat_cycles(t_philo *philos)
+{
+	int i;
+
+	i = 0;
+	while (i < philos->setup->num_of_philos)
+	{
+
+		i++;
+	}
+
+}
+
 int main(int argc, char **argv)
 {
     t_setup		setup;		//структура настроек
@@ -52,5 +65,7 @@ int main(int argc, char **argv)
 	init_philo_structs(philos, &setup);
 	gettimeofday(&setup.start, NULL);
 	launch_philos(setup, philos);
+	if (setup.max_eat_cycles)
+		wait_eat_cycles(philos);
 
 }
