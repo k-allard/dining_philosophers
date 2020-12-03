@@ -42,6 +42,8 @@ typedef struct		s_philo
 	int				num_of_dinners;
 	int				is_eating;
 	pthread_mutex_t has_eaten_enough_times;
+	pthread_mutex_t	*left_fork;
+	pthread_mutex_t	*right_fork;
 }					t_philo;
 
 typedef struct		s_message

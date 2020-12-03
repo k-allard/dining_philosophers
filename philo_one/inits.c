@@ -32,7 +32,11 @@ void	init_philo_structs(t_philo *philos, t_setup *setup)
 		j = 0;
 		while (j < 6)
 			philos[i].actions[j++] = 0;
-
+		philos[i].left_fork = &(setup->forks[i]);
+		if (philos[i].index == setup->philo_num)
+			philos[i].right_fork = &(setup->forks[0]);
+		else
+			philos[i].right_fork = &(setup->forks[i + 1]);
 		i++;
 	}
 }

@@ -12,7 +12,7 @@ void		wait_me_2(uint64_t dur)
 {
 	struct timeval now;
 	gettimeofday(&now, 0);
-	while (elapsed_time(now) < dur)
+	while (time_passed(now) < dur)
 		usleep(999);
 }
 
