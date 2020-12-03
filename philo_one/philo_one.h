@@ -38,6 +38,9 @@ typedef struct		s_philo
 	int				index;		//порядковый номер философа
 	t_setup			*setup;
 	int				actions[6];
+	uint64_t		last_dinner_time;
+	int				num_of_dinners;
+	int				is_eating;
 	pthread_mutex_t has_eaten_enough_times;
 }					t_philo;
 
@@ -59,6 +62,8 @@ void	init_philo_structs(t_philo *philos, t_setup *setup);
 ** TIME
 */
 
+void		wait_me_2(uint64_t dur);
+void		wait_me(struct timeval t, uint64_t start, uint64_t dur);
 uint64_t	time_passed(struct timeval start);
 
 /*
@@ -70,7 +75,7 @@ void	launch_philos(t_setup setup, t_philo *philos);
 /*
 ** PHILO_LIFE
 */
-
+void	eating(t_philo *philo);
 void	*philo_entry_function(void *argument);
 
 /*
