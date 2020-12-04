@@ -1,3 +1,5 @@
+# Philo_one
+### _Dining philosophers problem with threads and mutexes_
 ## :star: Permitted functions :  
 __memset__, malloc, free, write, __usleep__, __gettimeofday__, __pthread_create__, 
 __pthread_detach__, __pthread_join__, __pthread_mutex_init__, __pthread_mutex_destroy__, 
