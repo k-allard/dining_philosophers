@@ -44,6 +44,8 @@ typedef struct		s_philo
 	pthread_mutex_t has_eaten_enough_times;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	unsigned int	left_hand;
+	unsigned int	right_hand;
 }					t_philo;
 
 typedef struct		s_message

@@ -24,6 +24,8 @@ void	init_philo_structs(t_philo *philos, t_setup *setup)
 	{
 		philos[i].index = i + 1;
 		philos[i].setup = setup;
+		philos[i].left_hand = 0;
+		philos[i].right_hand_hand = 0;
 		if (setup->max_eat_cycles)
 		{
 			pthread_mutex_init(&(philos[i].has_eaten_enough_times), NULL);
