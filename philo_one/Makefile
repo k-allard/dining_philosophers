@@ -1,7 +1,12 @@
 NAME = philo_one
 
 SRCS = philo_one.c \
-		utils.c
+		utils.c \
+		inits.c \
+		launch.c \
+		philo_life.c \
+		supervisor.c \
+		time.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -13,7 +18,7 @@ all: $(NAME)
 $(NAME):
 	@echo "\x1b[33m Preparing philo_one...\x1b[0m"
 	@gcc -o $(NAME) $(SRCS) $(FLAGS)
-	@echo "\x1b[32m Philo_one is ready!\x1b[0m"
+	@echo "\x1b[32m ./philo_one is ready!\x1b[0m"
 	@echo "\x1b[32m 4 or 5 arguments are required :\x1b[0m"
 	@echo "\x1b[32m number_of_philosophers, time_to_die, time_to_eat, time_to_sleep, [number_of_times_each_philosopher_must_eat]\x1b[0m"
 

@@ -12,11 +12,11 @@ void	unlock_forks(t_philo *philo)
 
 void	lock_forks(t_philo *philo)
 {
-	pthread_mutex_lock(philo->left);
+	pthread_mutex_lock(philo->left_fork);
 	philo->actions[TAKEN_LEFT_FORK] = 1;
 	philo->left_hand = 1;
 	what_status(philo, time_passed(philo->setup->start) / 1000);
-	pthread_mutex_lock(philo->right);
+	pthread_mutex_lock(philo->right_fork);
 	philo->actions[TAKEN_RIGHT_FORK] = 1;
 	philo->right_hand = 1;
 	what_status(philo, time_passed(philo->setup->start) / 1000);
@@ -26,9 +26,9 @@ void	eating(t_philo *philo)
 {
 	philo->is_eating = 1;
 	philo->last_dinner_time = time_passed(philo->setup->start);
-	philo->alerts[EATING] = 1;
+	philo->actions[EATING] = 1;
 	what_status(philo, time_passed(philo->setup->start) / 1000);
-	wait_me(philo->setup->start, philo->last_dinner_ts, philo->setup->time_to_eat);
+	wait_me(philo->setup->start, philo->last_dinner_time, philo->setup->time_to_eat);
 	philo->num_of_dinners++;
 	philo->is_eating = 0;
 }
@@ -54,19 +54,19 @@ void	*philo_entry_function(void *argument) // When creating a thread, we need to
 	pthread_detach(supervisor);
 	while (42 && !philo->setup->can_stop)
 	{
-		philo->alerts[THINKING] = 1;
-		what_status(philo, time_passed(phil->setup->start) / 1000);
+		philo->actions[THINKING] = 1;
+		what_status(philo, time_passed(philo->setup->start) / 1000);
 		lock_forks(philo);
 		eating(philo);
 		unlock_forks(philo);
 		if (max_cycles_reached(philo))
 			return (NULL);
-		philo->alerts[SLEEPING] = 1;
-		what_status(philo, time_passed(phil->setup->start) / 1000);
-		wait_me_2(phil->setup->time_to_sleep);
+		philo->actions[SLEEPING] = 1;
+		what_status(philo, time_passed(philo->setup->start) / 1000);
+		wait_me_2(philo->setup->time_to_sleep);
 	}
 	unlock_forks(philo);
-	pthread_mutex_unlock(&(phil->has_eaten_enough_times));
+	pthread_mutex_unlock(&(philo->has_eaten_enough_times));
 
 	return (NULL);
 }
