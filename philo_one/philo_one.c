@@ -1,5 +1,24 @@
 #include "philo_one.h"
 
+void	check_args(int argc, char **argv)
+{
+	int i;
+	int j;
+
+	i = 1;
+	while (i < argc)
+	{
+		j = 0;
+		while (argv[i] && argv[i][j])
+		{
+			if (!(argv[i][j] >= '0' && argv[i][j] <= '9'))
+				args_error();
+			j++;
+		}
+		i++;
+	}
+}
+
 void	wait_eat_cycles(t_philo *philos)
 {
 	int i;
@@ -36,6 +55,9 @@ int main(int argc, char **argv)
 	t_philo		*philos;	//структуры для философов
 	int i;
 
+	if (argc != 5 && argc != 6)
+		args_error();
+	check_args(argc, argv);
 	init_setup_struct(&setup, argc, argv);
 	philos = malloc(sizeof(t_philo) * setup.num_of_philos);	//выделяем память под структуры философов
 	i = 0;

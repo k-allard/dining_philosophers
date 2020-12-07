@@ -101,6 +101,12 @@ int					ft_atoi(char *str);
 int					ft_strlen(char *str);
 void				ft_putnbr(int n);
 
+/*
+** ERRORS
+*/
 
+void				init_error(void);
+void				args_error(void);
+void				malloc_error(void);
 
 #endif
