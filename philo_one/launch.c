@@ -2,14 +2,25 @@
 
 void	launch_philos(t_setup setup, t_philo *philos)
 {
-	pthread_t thr; // variable to reference the particular thread
 	int i;
+	pthread_t thr; // variable to reference the particular thread
 
-	i = 0;
-	while (i < setup.num_of_philos)
+	i = -1;
+	while (++i < setup.num_of_philos)
 	{
-		pthread_create(&thr, NULL, &philo_entry_function, &(philos[i]));
-		pthread_detach(thr);
-		i++;
+		if (!(i % 2))
+		{
+			pthread_create(&thr, NULL, &philo_entry_function, &(philos[i]));
+			pthread_detach(thr);
+		}
+	}
+	i = -1;
+	while (++i < setup.num_of_philos)
+	{
+		if (i % 2)
+		{
+			pthread_create(&thr, NULL, &philo_entry_function, &(philos[i]));
+			pthread_detach(thr);
+		}
 	}
 }

@@ -12,8 +12,7 @@
 
 typedef enum		e_action
 {
-	TAKEN_LEFT_FORK,
-	TAKEN_RIGHT_FORK,
+	TAKEN_FORK,
 	EATING,
 	SLEEPING,
 	THINKING,
@@ -38,12 +37,12 @@ typedef struct		s_setup
 typedef struct		s_philo
 {
 	int				index;		//порядковый номер философа
+	int				num_of_dinners; //сколько раз он уже поел
 	t_setup			*setup;
 	int				actions[6];
 	uint64_t		last_dinner_time;
-	int				num_of_dinners;
 	int				is_eating;
-	pthread_mutex_t has_eaten_enough_times;
+	pthread_mutex_t eating;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
 	unsigned int	left_hand;

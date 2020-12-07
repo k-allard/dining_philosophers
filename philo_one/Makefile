@@ -37,9 +37,10 @@ fclean: clean
 
 
 re: fclean all
-	@./${NAME} 4 410 200 200 5
 
 test: re
+	@echo "\x1b[33m [5 800 200 200] - no one should die!\x1b[0m"
+	@./${NAME} 5 800 200 200
 
 
 %.o: %.c

@@ -32,15 +32,10 @@ void	what_status(t_philo *philo, int time)
 		write_status(time, philo->index, " is thinking\n", &philo->setup->writing);
 		philo->actions[THINKING] = 0;
 	}
-	if (philo->actions[TAKEN_LEFT_FORK])
+	if (philo->actions[TAKEN_FORK])
 	{
 		write_status(time, philo->index, " has taken a fork\n", &philo->setup->writing);
-		philo->actions[TAKEN_LEFT_FORK] = 0;
-	}
-	if (philo->actions[TAKEN_RIGHT_FORK])
-	{
-		write_status(time, philo->index, " has taken a fork\n", &philo->setup->writing);
-		philo->actions[TAKEN_RIGHT_FORK] = 0;
+		philo->actions[TAKEN_FORK] = 0;
 	}
 	if (philo->actions[EATING])
 	{
@@ -60,9 +55,14 @@ void	what_status(t_philo *philo, int time)
 	}
 }
 
+/*
+** Supervisor of each philo
+** - kills the philo if he hasnt eaten before time_to_die
+*/
+
 void	*supervisor_function(void *argument)
 {
-	t_philo *philo;
+	t_philo 	*philo;
 	uint64_t	time; // в микросекундах
 
 	philo = argument;
