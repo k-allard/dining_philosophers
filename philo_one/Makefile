@@ -6,12 +6,13 @@ SRCS = philo_one.c \
 		launch.c \
 		philo_life.c \
 		supervisor.c \
-		time.c
+		time.c \
+		errors.c
 
 OBJS = $(SRCS:.c=.o)
 
 # FLAGS =-Wall -Wextra -Werror -O3
-FLAGS =-g
+FLAGS =-g -fsanitize=address
 
 all: $(NAME)
 

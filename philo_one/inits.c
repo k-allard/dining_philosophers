@@ -11,9 +11,9 @@ void	init_setup_struct(t_setup *setup, int argc, char **argv)
 	setup->forks = malloc(sizeof(pthread_mutex_t) * (setup->num_of_philos));
 	setup->can_stop = 0;
 	setup->one_died = 0;
-	pthread_mutex_init(&(setup->is_dead), NULL);
+	setup->count_eating_philos = setup->num_of_philos;
 	pthread_mutex_init(&(setup->writing), NULL);
-	pthread_mutex_lock(&(setup->is_dead));
+	pthread_mutex_init(&(setup->decreasing_count_eating_philos), NULL);
 }
 
 void	init_philo_structs(t_philo *philos, t_setup *setup)

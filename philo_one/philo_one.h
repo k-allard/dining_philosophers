@@ -21,17 +21,21 @@ typedef enum		e_action
 
 typedef struct		s_setup
 {
-	pthread_mutex_t	*forks;		//вилочные мьютексы = кол-ву философов
-	pthread_mutex_t	is_dead;
-	pthread_mutex_t	writing; 	//чтобы одновременно не писали статусы
-	struct timeval	start;			//время старта симуляции
+
+	
 	int				num_of_philos;	//argv[1]
 	uint64_t		time_to_die;	//argv[2] используем тип лонг лонг беззнаковый так как время в МИКРОсекундах
 	uint64_t		time_to_eat;	//argv[3]
 	uint64_t		time_to_sleep;	//argv[4]
 	int				max_eat_cycles;	//argv[5]
-	int				can_stop;
-	int				one_died;
+
+	pthread_mutex_t	*forks;		//вилочные мьютексы = кол-ву философов
+	pthread_mutex_t	writing; 	//чтобы одновременно не писали статусы
+	pthread_mutex_t decreasing_count_eating_philos;
+	struct timeval	start;		//время старта симуляции
+	int				can_stop;	//когда все поели достаточное кол-во раз
+	int				count_eating_philos;
+	int				one_died;	//один из философов умер
 }					t_setup;
 
 typedef struct		s_philo
@@ -42,6 +46,7 @@ typedef struct		s_philo
 	int				actions[6];
 	uint64_t		last_dinner_time;
 	int				is_eating;
+	int				is_dead;
 	pthread_mutex_t eating;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;

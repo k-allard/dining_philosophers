@@ -8,6 +8,16 @@ void	write_died_status(int time, int index, char *status)
 	write(1, status, ft_strlen(status));
 }
 
+void	died(t_philo *philo, uint64_t time)
+{
+	philo->is_dead = 1;
+	philo->setup->one_died = 1;
+	set_action(philo, DIED);
+	pthread_mutex_lock(&(philo->setup->writing));
+	write_died_status(time / 1000, philo->index, " died\n");
+	pthread_mutex_unlock(&philo->setup->writing);
+}
+
 void	set_action(t_philo *philo, int action)
 {
 	philo->actions[action] = 1;
@@ -51,7 +61,7 @@ void	what_status(t_philo *philo, int time)
 	{
 		write_status(time, philo->index, " is dead\n", &philo->setup->writing);
 		philo->actions[DIED] = 0;
-		philo->setup->can_stop = 1;
+		philo->setup->one_died = 1;
 	}
 }
 
@@ -66,21 +76,21 @@ void	*supervisor_function(void *argument)
 	uint64_t	time; // в микросекундах
 
 	philo = argument;
-	while (!philo->setup->can_stop)
+	while (42 && !philo->setup->can_stop)
 	{
+		if (philo->is_dead)
+			break ;
+		pthread_mutex_lock(&philo->eating);
 		time = time_passed(philo->setup->start); 	//сколько прошло МИКРОсекунд со старта программы
 		if (time - philo->last_dinner_time > philo->setup->time_to_die
 			&& !philo->setup->can_stop)
 		{
-			philo->setup->can_stop = 1;
-			philo->setup->one_died = 1;
-			set_action(philo, DIED);
-			pthread_mutex_lock(&(philo->setup->writing));
-			write_died_status(time / 1000, philo->index, " died\n");
-			pthread_mutex_unlock(&(philo->setup->writing));
-			pthread_mutex_unlock(&(philo->setup->is_dead));
-			return (NULL);
+			if (!philo->setup->one_died)
+				died(philo, time);
+			pthread_mutex_unlock(&philo->eating);
+			break ;
 		}
+		pthread_mutex_unlock(&philo->eating);
 		usleep(999);
 	}
 	return (NULL);

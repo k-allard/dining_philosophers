@@ -19,23 +19,29 @@ void	check_args(int argc, char **argv)
 	}
 }
 
-void	wait_eat_cycles(t_philo *philos)
+void	wait_eat_cycles(t_setup	*setup)
 {
 	int i;
 
 	i = 0;
-	while (i < philos->setup->num_of_philos)
+	while (setup->count_eating_philos || !setup->one_died)
 	{
-		pthread_mutex_lock(&(philos[i].eating));
-		pthread_mutex_unlock(&(philos[i].eating));
-		i++;
+		usleep(999);
 	}
-	pthread_mutex_unlock(&philos->setup->writing);
-	pthread_mutex_lock(&(philos->setup->writing));
-	if (!philos->setup->one_died)
+	if (!setup->count_eating_philos)
+	{
+		pthread_mutex_lock(&(setup->writing));
 		write(1, "Each philo has eaten enough times.\n", 35);
-	pthread_mutex_unlock(&(philos->setup->writing));
-	pthread_mutex_unlock(&(philos->setup->is_dead));
+		pthread_mutex_unlock(&(setup->writing));
+	}
+}
+
+void wait_one_died(t_setup	*setup)
+{
+	while (!setup->one_died)
+	{
+		usleep(999);
+	}
 }
 
 void	clean(t_setup *setup, t_philo *philos)
@@ -51,9 +57,9 @@ void	clean(t_setup *setup, t_philo *philos)
 
 int main(int argc, char **argv)
 {
-    t_setup		setup;		//структура настроек
-	t_philo		*philos;	//структуры для философов
-	int i;
+    t_setup	setup;		//структура настроек
+	t_philo	*philos;	//структуры для философов
+	int		i;
 
 	if (argc != 5 && argc != 6)
 		args_error();
@@ -67,9 +73,10 @@ int main(int argc, char **argv)
 	gettimeofday(&setup.start, NULL);
 	launch_philos(setup, philos);
 	if (setup.max_eat_cycles)
-		wait_eat_cycles(philos);
-	pthread_mutex_lock(&(setup.is_dead));
-	pthread_mutex_unlock(&(setup.is_dead));
+		wait_eat_cycles(&setup);
+	else
+		wait_one_died(&setup);
+	
 	clean(&setup, philos);
 	write(1, "Simulation has ended.\n", 22);
 }
