@@ -46,6 +46,25 @@ void	write_status(int time, int philo_id, char *action, pthread_mutex_t *writing
 	free(str);
 }
 
+void	print_status(t_action action, t_philo *philo)
+{
+	char *actions[9];
+	int time;
+
+	actions[TAKEN_FORK] = " has taken a fork\n";
+	actions[EATING] = " is eating\n";
+	actions[FINISHED_EATING] = " is eating Stop\n";
+	actions[FINISHED_SLEEPING] = " is sleeping Stop\n";
+	actions[SLEEPING] = " is sleeping\n";
+	actions[THINKING] = " is thinking\n";
+	actions[DIED] = " is dead\n";
+	actions[TAKEN_FORK_LEFT] = " has taken a fork Left\n";
+	actions[TAKEN_FORK_RIGHT] = " has taken a fork Rigth\n";
+
+	time = time_passed(philo->setup->start) / 1000;
+	write_status(time, philo->index, actions[action], &philo->setup->writing);
+}
+
 void	what_status(t_philo *philo, int time)
 {
 	if (philo->setup->one_died)
@@ -65,6 +84,20 @@ void	what_status(t_philo *philo, int time)
 		write_status(time, philo->index, " is eating\n", &philo->setup->writing);
 		philo->actions[EATING] = 0;
 	}
+
+//extra_chacks vvv
+	else if (philo->actions[FINISHED_EATING])
+	{
+		write_status(time, philo->index, " finished eating\n", &philo->setup->writing);
+		philo->actions[FINISHED_EATING] = 0;
+	}
+	else if (philo->actions[FINISHED_SLEEPING])
+	{
+		write_status(time, philo->index, " finished sleeping\n", &philo->setup->writing);
+		philo->actions[FINISHED_SLEEPING] = 0;
+	}
+//extra_chacks ^^^
+
 	else if (philo->actions[SLEEPING])
 	{
 		write_status(time, philo->index, " is sleeping\n", &philo->setup->writing);
@@ -103,7 +136,7 @@ void	*supervisor_function(void *argument)
 			break ;
 		}
 		pthread_mutex_unlock(&philo->eating);
-		usleep(999);
+		usleep(70);
 	}
 	return (NULL);
 }

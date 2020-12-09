@@ -30,19 +30,15 @@ void	init_philo_structs(t_philo *philos, t_setup *setup)
 		philos[i].is_dead = 0;
 		philos[i].num_of_dinners = 0;
 		philos[i].last_dinner_time = time_passed(setup->start);
-		if (setup->max_eat_cycles)
-		{
-			pthread_mutex_init(&(philos[i].eating), NULL);
-			// pthread_mutex_lock(&(philos[i].eating));
-		}
+		pthread_mutex_init(&(philos[i].eating), NULL);
 		j = 0;
 		while (j < 6)
 			philos[i].actions[j++] = 0;
-		philos[i].left_fork = &(setup->forks[i]);
+		philos[i].right_fork = &(setup->forks[i]);
 		if (philos[i].index == setup->num_of_philos)
-			philos[i].right_fork = &(setup->forks[0]);
+			philos[i].left_fork = &(setup->forks[0]);
 		else
-			philos[i].right_fork = &(setup->forks[i + 1]);
+			philos[i].left_fork = &(setup->forks[i + 1]);
 		i++;
 	}
 }

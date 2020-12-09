@@ -27,7 +27,7 @@ void	wait_eat_cycles(t_setup	*setup)
 	while (setup->count_eating_philos > 0)
 	{
 		if(setup->one_died == 0)
-			usleep(999);
+			usleep(70);
 		else
 			 break ;
 	}
@@ -43,7 +43,7 @@ void wait_one_died(t_setup	*setup)
 {
 	while (!setup->one_died)
 	{
-		usleep(999);
+		usleep(70);
 	}
 }
 

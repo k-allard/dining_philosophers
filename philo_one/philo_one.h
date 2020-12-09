@@ -12,11 +12,17 @@
 
 typedef enum		e_action
 {
-	TAKEN_FORK,
+	TAKEN_FORK = 0,
 	EATING,
+//extra_chacks vvv
+	FINISHED_EATING,
+	FINISHED_SLEEPING,
+//extra_chacks ^^^
 	SLEEPING,
 	THINKING,
-	DIED
+	DIED,
+	TAKEN_FORK_LEFT,
+	TAKEN_FORK_RIGHT
 }					t_action;
 
 typedef struct		s_setup
@@ -42,7 +48,7 @@ typedef struct		s_philo
 	int				index;		//порядковый номер философа
 	int				num_of_dinners; //сколько раз он уже поел
 	t_setup			*setup;
-	int				actions[6];
+	int				actions[8];
 	uint64_t		last_dinner_time;
 	int				is_eating;
 	int				is_dead;
@@ -95,6 +101,7 @@ void	what_status(t_philo *philo, int time);
 void	write_status(int time, int philo_id, char *action, pthread_mutex_t *writing);
 void	set_action(t_philo *philo, int action);
 void	*supervisor_function(void *argument);
+void	print_status(t_action action, t_philo *philo);
 
 /*
 ** UTILS
