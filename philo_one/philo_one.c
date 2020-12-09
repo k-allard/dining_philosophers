@@ -24,9 +24,12 @@ void	wait_eat_cycles(t_setup	*setup)
 	int i;
 
 	i = 0;
-	while (setup->count_eating_philos || !setup->one_died)
+	while (setup->count_eating_philos > 0)
 	{
-		usleep(999);
+		if(setup->one_died == 0)
+			usleep(999);
+		else
+			 break ;
 	}
 	if (!setup->count_eating_philos)
 	{
@@ -65,18 +68,20 @@ int main(int argc, char **argv)
 		args_error();
 	check_args(argc, argv);
 	init_setup_struct(&setup, argc, argv);
+	gettimeofday(&setup.start, NULL);
 	philos = malloc(sizeof(t_philo) * setup.num_of_philos);	//выделяем память под структуры философов
 	i = 0;
 	while (i < setup.num_of_philos)
 		pthread_mutex_init(&(setup.forks[i++]), NULL);	//вилочные мьютексы = кол-ву философов
 	init_philo_structs(philos, &setup);
-	gettimeofday(&setup.start, NULL);
 	launch_philos(setup, philos);
 	if (setup.max_eat_cycles)
 		wait_eat_cycles(&setup);
 	else
 		wait_one_died(&setup);
 	
-	clean(&setup, philos);
+	pthread_mutex_lock(&(setup.writing));
 	write(1, "Simulation has ended.\n", 22);
+	pthread_mutex_unlock(&(setup.writing));
+	clean(&setup, philos);
 }

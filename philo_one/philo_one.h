@@ -33,7 +33,6 @@ typedef struct		s_setup
 	pthread_mutex_t	writing; 	//чтобы одновременно не писали статусы
 	pthread_mutex_t decreasing_count_eating_philos;
 	struct timeval	start;		//время старта симуляции
-	int				can_stop;	//когда все поели достаточное кол-во раз
 	int				count_eating_philos;
 	int				one_died;	//один из философов умер
 }					t_setup;
@@ -72,8 +71,8 @@ void	init_philo_structs(t_philo *philos, t_setup *setup);
 ** TIME
 */
 
-void		wait_me_2(uint64_t dur);
-void		wait_me(struct timeval t, uint64_t start, uint64_t dur);
+void		wait_me_2(uint64_t dur, t_setup *setup);
+void		wait_me_eating(uint64_t start, t_setup *setup);
 uint64_t	time_passed(struct timeval start);
 
 /*
@@ -105,7 +104,7 @@ char				*ft_itoa(int n);
 int					ft_atoi(char *str);
 int					ft_strlen(char *str);
 void				ft_putnbr(int n);
-
+size_t	ft_cpy(char *dest, const char *src);
 /*
 ** ERRORS
 */

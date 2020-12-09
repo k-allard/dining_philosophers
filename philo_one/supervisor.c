@@ -25,39 +25,52 @@ void	set_action(t_philo *philo, int action)
 
 void	write_status(int time, int philo_id, char *action, pthread_mutex_t *writing)
 {
+	char *timeS;
+	char *idS;
+	char *tmp;
+	char *str;
+	int len;
+	timeS = ft_itoa(time);
+	idS = ft_itoa(philo_id);
+	len = ft_strlen(action) + ft_strlen(timeS) + ft_strlen(idS) + 2;
+	str = (char*)malloc(sizeof(char) * len);
+	tmp = str + ft_cpy(str, timeS);
+	tmp = tmp + ft_cpy(tmp, "\t");
+	tmp = tmp + ft_cpy(tmp, idS);
+	tmp = tmp + ft_cpy(tmp, action);
 	pthread_mutex_lock(writing);
-	ft_putnbr(time);
-	write(1, "\t", 1);
-	ft_putnbr(philo_id);
-	write(1, action, ft_strlen(action));
+	write(1, str, len-1);
 	pthread_mutex_unlock(writing);
+	free(timeS);
+	free(idS);
+	free(str);
 }
 
 void	what_status(t_philo *philo, int time)
 {
-	if (philo->setup->can_stop)
+	if (philo->setup->one_died)
 		return ;
 	if (philo->actions[THINKING])
 	{
 		write_status(time, philo->index, " is thinking\n", &philo->setup->writing);
 		philo->actions[THINKING] = 0;
 	}
-	if (philo->actions[TAKEN_FORK])
+	else if (philo->actions[TAKEN_FORK])
 	{
 		write_status(time, philo->index, " has taken a fork\n", &philo->setup->writing);
 		philo->actions[TAKEN_FORK] = 0;
 	}
-	if (philo->actions[EATING])
+	else if (philo->actions[EATING])
 	{
 		write_status(time, philo->index, " is eating\n", &philo->setup->writing);
 		philo->actions[EATING] = 0;
 	}
-	if (philo->actions[SLEEPING])
+	else if (philo->actions[SLEEPING])
 	{
 		write_status(time, philo->index, " is sleeping\n", &philo->setup->writing);
 		philo->actions[SLEEPING] = 0;
 	}
-	if (philo->actions[DIED])
+	else if (philo->actions[DIED])
 	{
 		write_status(time, philo->index, " is dead\n", &philo->setup->writing);
 		philo->actions[DIED] = 0;
@@ -76,14 +89,13 @@ void	*supervisor_function(void *argument)
 	uint64_t	time; // в микросекундах
 
 	philo = argument;
-	while (42 && !philo->setup->can_stop)
+	while (42 && !philo->setup->one_died && philo->setup->count_eating_philos)
 	{
 		if (philo->is_dead)
 			break ;
 		pthread_mutex_lock(&philo->eating);
 		time = time_passed(philo->setup->start); 	//сколько прошло МИКРОсекунд со старта программы
-		if (time - philo->last_dinner_time > philo->setup->time_to_die
-			&& !philo->setup->can_stop)
+		if (time - philo->last_dinner_time > philo->setup->time_to_die && philo->setup->count_eating_philos)
 		{
 			if (!philo->setup->one_died)
 				died(philo, time);

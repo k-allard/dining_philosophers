@@ -83,3 +83,18 @@ void	ft_putnbr(int n)
 	ch = n % 10 + '0';
 	write(1, &ch, 1);
 }
+
+size_t	ft_cpy(char *dest, const char *src)
+{
+	size_t i;
+
+	i = 0;
+	if (!dest || !src)
+		return (0);
+	while (src[i])
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	return (i);
+}

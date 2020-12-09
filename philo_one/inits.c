@@ -9,7 +9,6 @@ void	init_setup_struct(t_setup *setup, int argc, char **argv)
 	setup->time_to_sleep = ft_atoi(argv[4]) * 1000;
 	setup->max_eat_cycles = argc == 6 ?  ft_atoi(argv[5]) : 0;
 	setup->forks = malloc(sizeof(pthread_mutex_t) * (setup->num_of_philos));
-	setup->can_stop = 0;
 	setup->one_died = 0;
 	setup->count_eating_philos = setup->num_of_philos;
 	pthread_mutex_init(&(setup->writing), NULL);
@@ -28,10 +27,13 @@ void	init_philo_structs(t_philo *philos, t_setup *setup)
 		philos[i].setup = setup;
 		philos[i].left_hand = 0;
 		philos[i].right_hand = 0;
+		philos[i].is_dead = 0;
+		philos[i].num_of_dinners = 0;
+		philos[i].last_dinner_time = time_passed(setup->start);
 		if (setup->max_eat_cycles)
 		{
 			pthread_mutex_init(&(philos[i].eating), NULL);
-			pthread_mutex_lock(&(philos[i].eating));
+			// pthread_mutex_lock(&(philos[i].eating));
 		}
 		j = 0;
 		while (j < 6)

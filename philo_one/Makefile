@@ -11,7 +11,7 @@ SRCS = philo_one.c \
 
 OBJS = $(SRCS:.c=.o)
 
-# FLAGS =-Wall -Wextra -Werror -O3
+#FLAGS =-Wall -Wextra -Werror -O3
 FLAGS =-g -fsanitize=address
 
 all: $(NAME)
