@@ -48,13 +48,14 @@ typedef struct		s_philo
 	int				index;		//порядковый номер философа
 	int				num_of_dinners; //сколько раз он уже поел
 	t_setup			*setup;
-	int				actions[8];
+	int				actions[10];
 	uint64_t		last_dinner_time;
 	int				is_eating;
 	int				is_dead;
 	pthread_mutex_t eating;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
+	pthread_mutex_t	wait_dead;
 	unsigned int	left_hand;
 	unsigned int	right_hand;
 }					t_philo;

@@ -2,6 +2,7 @@
 
 void	unlock_forks(t_philo *philo)
 {
+	pthread_mutex_unlock(&philo->eating);
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
@@ -13,6 +14,7 @@ void	lock_forks(t_philo *philo)
 		pthread_mutex_lock(philo->right_fork);
 		print_status(TAKEN_FORK_RIGHT, philo);
 		pthread_mutex_lock(philo->left_fork);
+		pthread_mutex_lock(&philo->eating);
 		print_status(TAKEN_FORK_LEFT, philo);
 	}
 	else
@@ -20,6 +22,7 @@ void	lock_forks(t_philo *philo)
 		pthread_mutex_lock(philo->left_fork);
 		print_status(TAKEN_FORK_LEFT, philo);
 		pthread_mutex_lock(philo->right_fork);
+		pthread_mutex_lock(&philo->eating);
 		print_status(TAKEN_FORK_RIGHT, philo);
 	}
 }
@@ -30,15 +33,13 @@ void	eating(t_philo *philo)
 	{
 		lock_forks(philo);
 		philo->actions[EATING] = 1;
-		pthread_mutex_lock(&philo->eating);
-		what_status(philo, time_passed(philo->setup->start) / 1000);
-		wait_me_eating(philo->last_dinner_time, philo->setup);
+		what_status(philo, time_passed(philo->setup->start) / 1000);		
+		philo->last_dinner_time = time_passed(philo->setup->start);
+		wait_me_2(philo->setup->time_to_eat, philo->setup);
 	//extra_chacks vvv
 		philo->actions[FINISHED_EATING] = 1;
 		what_status(philo, time_passed(philo->setup->start) / 1000);
 	//extra_chacks ^^^
-		philo->last_dinner_time = time_passed(philo->setup->start);
-		pthread_mutex_unlock(&philo->eating);
 		philo->num_of_dinners++;
 		unlock_forks(philo);
 	}

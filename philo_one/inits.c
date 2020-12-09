@@ -31,8 +31,9 @@ void	init_philo_structs(t_philo *philos, t_setup *setup)
 		philos[i].num_of_dinners = 0;
 		philos[i].last_dinner_time = time_passed(setup->start);
 		pthread_mutex_init(&(philos[i].eating), NULL);
+		pthread_mutex_init(&(philos[i].wait_dead), NULL);
 		j = 0;
-		while (j < 6)
+		while (j < 10)
 			philos[i].actions[j++] = 0;
 		philos[i].right_fork = &(setup->forks[i]);
 		if (philos[i].index == setup->num_of_philos)

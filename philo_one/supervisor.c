@@ -120,13 +120,24 @@ void	*supervisor_function(void *argument)
 {
 	t_philo 	*philo;
 	uint64_t	time; // в микросекундах
+	uint64_t	t; // в микросекундах
 
 	philo = argument;
 	while (42 && !philo->setup->one_died && philo->setup->count_eating_philos)
 	{
 		if (philo->is_dead)
 			break ;
+		t = philo->setup->time_to_die - (time_passed(philo->setup->start) - philo->last_dinner_time);
+		usleep(t);
 		pthread_mutex_lock(&philo->eating);
+		time = time_passed(philo->setup->start);
+		if(!philo->setup->one_died && time - philo->last_dinner_time > philo->setup->time_to_die)
+		{
+			died(philo, time);
+			break ;
+		}
+		pthread_mutex_unlock(&philo->eating);
+		/*
 		time = time_passed(philo->setup->start); 	//сколько прошло МИКРОсекунд со старта программы
 		if (time - philo->last_dinner_time > philo->setup->time_to_die && philo->setup->count_eating_philos)
 		{
@@ -137,6 +148,7 @@ void	*supervisor_function(void *argument)
 		}
 		pthread_mutex_unlock(&philo->eating);
 		usleep(70);
+		*/
 	}
 	return (NULL);
 }
