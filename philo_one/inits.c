@@ -19,7 +19,9 @@ void	init_philo_structs(t_philo *philos, t_setup *setup)
 {
 	int i;
 	int j;
+	uint64_t start_time;
 
+	start_time = (time_passed(setup->start) / 1000) * 1000 + 0;
 	i = 0;
 	while (i < setup->num_of_philos)
 	{
@@ -29,7 +31,9 @@ void	init_philo_structs(t_philo *philos, t_setup *setup)
 		philos[i].right_hand = 0;
 		philos[i].is_dead = 0;
 		philos[i].num_of_dinners = 0;
-		philos[i].last_dinner_time = time_passed(setup->start);
+		philos[i].last_dinner_time = start_time;
+		philos[i].next_event_time = 0;
+		philos[i].expected_dead_time = philos[i].last_dinner_time + setup->time_to_die + 800;
 		pthread_mutex_init(&(philos[i].eating), NULL);
 		pthread_mutex_init(&(philos[i].wait_dead), NULL);
 		j = 0;

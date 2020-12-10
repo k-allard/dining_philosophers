@@ -1,26 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   time.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/10 21:37:59 by kallard           #+#    #+#             */
+/*   Updated: 2020/12/10 22:28:50 by kallard          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_one.h"
 
-uint64_t	time_passed(struct timeval start)	//сколько прошло МИКРОсекунд со времени в аргументе
+uint64_t	time_passed(struct timeval start)
 {
-	struct timeval now;
+	struct timeval	now;
+	uint64_t		t;
 
 	gettimeofday(&now, 0);
-	return ((now.tv_sec - start.tv_sec) * 1000000 + (now.tv_usec - start.tv_usec));
+	t = (now.tv_sec - start.tv_sec);
+	t = t * 1000000;
+	t += (now.tv_usec - start.tv_usec);
+	return (t);
 }
 
-void		wait_me_2(uint64_t dur, t_setup *setup)
+void		wait_me(uint64_t stop_eat, t_setup *setup)
 {
-	struct timeval now;
-	gettimeofday(&now, 0);
-	while (time_passed(now) < dur && setup->count_eating_philos && !setup->one_died)
-		usleep(1);
-}
-
-void		wait_me_eating(uint64_t start, t_setup *setup)
-{
-	uint64_t to_wait;
-
-	to_wait = start + setup->time_to_eat;
-	while (time_passed(setup->start) < to_wait && setup->count_eating_philos && !setup->one_died)
-		usleep(1);
+	while (time_passed(setup->start) < stop_eat)
+		usleep(100);
 }

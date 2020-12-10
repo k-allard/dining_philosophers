@@ -1,0 +1,72 @@
+[5 800 200 200] - no one should die!
+0       f3 has taken a fork Left
+0       f5 start wait check for died to 800
+0       f3 has taken a fork Rigth
+0       f1 has taken a fork Left
+0       f2 start wait check for died to 800
+0       f5 has taken a fork Left
+0       f3 is eating
+0       f3 start wait check for died to 800
+0       f1 start wait check for died to 800
+0       f5 has taken a fork Rigth
+0       f4 start wait check for died to 800
+0       f5 is eating
+200     f3 is eating Stop
+200     f3 is sleeping
+200     f5 is eating Stop
+200     f4 has taken a fork Rigth
+200     f1 has taken a fork Rigth
+200     f5 is sleeping
+200     f4 has taken a fork Left
+200     f4 is eating
+200     f1 is eating
+403     f3 is sleeping Stop
+403     f3 is thinking
+403     f5 is sleeping Stop
+403     f5 is thinking
+403     f4 is eating Stop
+403     f1 is eating Stop
+403     f1 is sleeping
+403     f4 is sleeping
+403     f3 has taken a fork Left
+403     f3 has taken a fork Rigth
+403     f3 is eating
+403     f2 has taken a fork Rigth
+403     f5 has taken a fork Left
+403     f5 has taken a fork Rigth
+403     f5 is eating
+606     f1 is sleeping Stop
+606     f1 is thinking
+606     f4 is sleeping Stop
+606     f4 is thinking
+606     f3 is eating Stop
+606     f3 is sleeping
+606     f5 is eating Stop
+606     f5 is sleeping
+606     f4 has taken a fork Rigth
+606     f4 has taken a fork Left
+606     f4 is eating
+606     f2 has taken a fork Left
+606     f2 is eating
+802     f4 start wait check for died to 1406
+802     f1 start wait check for died to 1000
+802     f5 start wait check for died to 1203
+802     f3 start wait check for died to 1203
+811     f3 is sleeping Stop
+811     f3 is thinking
+811     f5 is sleeping Stop
+811     f5 is thinking
+811     f5 has taken a fork Left
+811     f4 is eating Stop
+811     f2 is eating Stop
+811     f4 is sleeping
+811     f2 is sleeping
+811     f5 has taken a fork Rigth
+811     f5 is eating
+811     f3 has taken a fork Left
+811     f3 has taken a fork Rigth
+811     f3 is eating
+811     f2 start wait check for died to 1406
+811     f1 has taken a fork Left
+1005    1 died
+Simulation has ended.

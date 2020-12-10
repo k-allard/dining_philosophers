@@ -25,6 +25,7 @@ typedef enum		e_action
 	TAKEN_FORK_RIGHT
 }					t_action;
 
+
 typedef struct		s_setup
 {
 
@@ -50,6 +51,8 @@ typedef struct		s_philo
 	t_setup			*setup;
 	int				actions[10];
 	uint64_t		last_dinner_time;
+	uint64_t		next_event_time;
+	uint64_t		expected_dead_time;
 	int				is_eating;
 	int				is_dead;
 	pthread_mutex_t eating;
@@ -58,14 +61,11 @@ typedef struct		s_philo
 	pthread_mutex_t	wait_dead;
 	unsigned int	left_hand;
 	unsigned int	right_hand;
+
+	pthread_t		thread_id;
+	pthread_t		supervisor;
 }					t_philo;
 
-typedef struct		s_message
-{
-	int				time;
-	int				philo_num;
-    t_action		action;
-}					t_message;
 
 /*
 ** INITS
@@ -79,7 +79,8 @@ void	init_philo_structs(t_philo *philos, t_setup *setup);
 */
 
 void		wait_me_2(uint64_t dur, t_setup *setup);
-void		wait_me_eating(uint64_t start, t_setup *setup);
+void		wait_me(uint64_t start, t_setup *setup);
+void		wait_me_sleeping(uint64_t start, t_setup *setup);
 uint64_t	time_passed(struct timeval start);
 
 /*
@@ -99,7 +100,8 @@ void	*philo_entry_function(void *argument);
 */
 
 void	what_status(t_philo *philo, int time);
-void	write_status(int time, int philo_id, char *action, pthread_mutex_t *writing);
+void	write_status(int time, t_philo *philo, char *action);
+void	write_wait_next_check(int time, t_philo *philo, int next_check_time);
 void	set_action(t_philo *philo, int action);
 void	*supervisor_function(void *argument);
 void	print_status(t_action action, t_philo *philo);
