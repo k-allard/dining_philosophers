@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/10 23:39:15 by kallard           #+#    #+#             */
+/*   Updated: 2020/12/10 23:39:36 by kallard          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_one.h"
 
 static int	ft_digits(int n)
@@ -9,10 +21,6 @@ static int	ft_digits(int n)
 		dig++;
 	return (dig);
 }
-
-/*
-** Allocates and returns a string representing the int received as an argument.
-*/
 
 char		*ft_itoa(int n)
 {
@@ -59,7 +67,7 @@ int			ft_atoi(char *str)
 	return (sign * result);
 }
 
-int		ft_strlen(char *str)
+int			ft_strlen(char *str)
 {
 	int		i;
 
@@ -69,7 +77,7 @@ int		ft_strlen(char *str)
 	return (i);
 }
 
-void	ft_putnbr(int n)
+void		ft_putnbr(int n)
 {
 	char ch;
 
@@ -82,19 +90,4 @@ void	ft_putnbr(int n)
 		ft_putnbr(n / 10);
 	ch = n % 10 + '0';
 	write(1, &ch, 1);
-}
-
-size_t	ft_cpy(char *dest, const char *src)
-{
-	size_t i;
-
-	i = 0;
-	if (!dest || !src)
-		return (0);
-	while (src[i])
-	{
-		dest[i] = src[i];
-		i++;
-	}
-	return (i);
 }
