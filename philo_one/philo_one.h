@@ -87,7 +87,7 @@ uint64_t	time_passed(struct timeval start);
 ** LAUNCH
 */
 
-void	launch_philos(t_setup setup, t_philo *philos);
+void	launch_philos(t_setup *setup, t_philo *philos);
 
 /*
 ** PHILO_LIFE
@@ -99,7 +99,7 @@ void	*philo_entry_function(void *argument);
 ** SUPERVISOR
 */
 
-void	what_status(t_philo *philo, int time);
+void				what_status(t_philo *philo, int time);
 void	write_status(int time, t_philo *philo, char *action);
 void	write_wait_next_check(int time, t_philo *philo, int next_check_time);
 void	set_action(t_philo *philo, int action);
@@ -114,7 +114,7 @@ char				*ft_itoa(int n);
 int					ft_atoi(char *str);
 int					ft_strlen(char *str);
 void				ft_putnbr(int n);
-size_t	ft_cpy(char *dest, const char *src);
+size_t				ft_cpy(char *dest, const char *src);
 /*
 ** ERRORS
 */
@@ -122,5 +122,11 @@ size_t	ft_cpy(char *dest, const char *src);
 void				init_error(void);
 void				args_error(void);
 void				malloc_error(void);
+
+/*
+** FINISHING
+*/
+
+int					finishing(t_setup *setup, t_philo *philos);
 
 #endif

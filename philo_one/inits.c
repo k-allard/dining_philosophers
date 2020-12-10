@@ -1,13 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   inits.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/10 23:01:14 by kallard           #+#    #+#             */
+/*   Updated: 2020/12/10 23:11:21 by kallard          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_one.h"
 
-// argvs : number_of_philosophers, time_to_die, time_to_eat, time_to_sleep, [number_of_times_each_philosopher_must_eat]
-void	init_setup_struct(t_setup *setup, int argc, char **argv)
+void		init_setup_struct(t_setup *setup, int argc, char **argv)
 {
 	setup->num_of_philos = ft_atoi(argv[1]);
-	setup->time_to_die = ft_atoi(argv[2]) * 1000;	//переводим мили-секунды в микро-
+	setup->time_to_die = ft_atoi(argv[2]) * 1000;
 	setup->time_to_eat = ft_atoi(argv[3]) * 1000;
 	setup->time_to_sleep = ft_atoi(argv[4]) * 1000;
-	setup->max_eat_cycles = argc == 6 ?  ft_atoi(argv[5]) : 0;
+	setup->max_eat_cycles = argc == 6 ? ft_atoi(argv[5]) : 0;
 	setup->forks = malloc(sizeof(pthread_mutex_t) * (setup->num_of_philos));
 	setup->one_died = 0;
 	setup->count_eating_philos = setup->num_of_philos;
@@ -15,11 +26,30 @@ void	init_setup_struct(t_setup *setup, int argc, char **argv)
 	pthread_mutex_init(&(setup->decreasing_count_eating_philos), NULL);
 }
 
-void	init_philo_structs(t_philo *philos, t_setup *setup)
+void		init_philo_structs2(t_philo *philos, t_setup *setup)
 {
-	int i;
+	int	i;
 	int j;
-	uint64_t start_time;
+
+	i = 0;
+	while (i < setup->num_of_philos)
+	{
+		j = 0;
+		while (j < 10)
+			philos[i].actions[j++] = 0;
+		philos[i].right_fork = &(setup->forks[i]);
+		if (philos[i].index == setup->num_of_philos)
+			philos[i].left_fork = &(setup->forks[0]);
+		else
+			philos[i].left_fork = &(setup->forks[i + 1]);
+		i++;
+	}
+}
+
+void		init_philo_structs(t_philo *philos, t_setup *setup)
+{
+	int			i;
+	uint64_t	start_time;
 
 	start_time = (time_passed(setup->start) / 1000) * 1000 + 0;
 	i = 0;
@@ -33,17 +63,11 @@ void	init_philo_structs(t_philo *philos, t_setup *setup)
 		philos[i].num_of_dinners = 0;
 		philos[i].last_dinner_time = start_time;
 		philos[i].next_event_time = 0;
-		philos[i].expected_dead_time = philos[i].last_dinner_time + setup->time_to_die + 800;
+		philos[i].expected_dead_time = philos[i].last_dinner_time + \
+										setup->time_to_die + 800;
 		pthread_mutex_init(&(philos[i].eating), NULL);
 		pthread_mutex_init(&(philos[i].wait_dead), NULL);
-		j = 0;
-		while (j < 10)
-			philos[i].actions[j++] = 0;
-		philos[i].right_fork = &(setup->forks[i]);
-		if (philos[i].index == setup->num_of_philos)
-			philos[i].left_fork = &(setup->forks[0]);
-		else
-			philos[i].left_fork = &(setup->forks[i + 1]);
 		i++;
 	}
+	init_philo_structs2(philos, setup);
 }

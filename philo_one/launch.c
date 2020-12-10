@@ -1,26 +1,29 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   launch.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/12/10 23:27:18 by kallard           #+#    #+#             */
+/*   Updated: 2020/12/10 23:33:08 by kallard          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo_one.h"
 
-void	launch_philos(t_setup setup, t_philo *philos)
+void	launch_philos(t_setup *setup, t_philo *philos)
 {
 	int i;
-	// pthread_t thr; // variable to reference the particular thread
 
 	i = -1;
-	while (++i < setup.num_of_philos)
-	{
+	while (++i < setup->num_of_philos)
 		if (!(i % 2))
-		{
-			pthread_create(&(philos[i].thread_id), NULL, &philo_entry_function, &(philos[i]));
-			// pthread_detach(thr);
-		}
-	}
+			pthread_create(&(philos[i].thread_id), NULL, \
+							&philo_entry_function, &(philos[i]));
 	i = -1;
-	while (++i < setup.num_of_philos)
-	{
+	while (++i < setup->num_of_philos)
 		if (i % 2)
-		{
-			pthread_create(&(philos[i].thread_id), NULL, &philo_entry_function, &(philos[i]));
-			// pthread_detach(thr);
-		}
-	}
+			pthread_create(&(philos[i].thread_id), NULL, \
+							&philo_entry_function, &(philos[i]));
 }

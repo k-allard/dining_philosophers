@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 21:29:03 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/10 22:53:52 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/10 23:30:01 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	died(t_philo *philo, uint64_t time)
 	philo->is_dead = 1;
 	philo->setup->one_died = 1;
 	philo->actions[DIED] = 1;
-	pthread_mutex_lock(&(philo->setup->writing));
+	pthread_mutex_lock(&philo->setup->writing);
 	write_died_status(time / 1000, philo->index, " died\n");
 	pthread_mutex_unlock(&philo->setup->writing);
 }

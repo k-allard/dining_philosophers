@@ -7,6 +7,7 @@ SRCS = philo_one.c \
 		philo_life.c \
 		supervisor.c \
 		time.c \
+		finishing.c \
 		errors.c
 
 OBJS = $(SRCS:.c=.o)
