@@ -6,15 +6,11 @@ __pthread_detach__, __pthread_join__, __sem_open__, __sem_close__, __sem_post__,
 
 ## :star: Semaphores
 
-:round_pushpin:  __sem_open__ - initializes and open a named semaphore
-
-:round_pushpin:  __sem_close__ - closes a named semaphore
-
-:round_pushpin:  __sem_post__ - unlocks a semaphore == the value of the semaphore is incremented
-
-:round_pushpin:  __sem_wait__ - locks a semaphore
-
-:round_pushpin:  __sem_unlink__ - remove a named semaphore
+- __sem_open__ - initializes and open a named semaphore
+- __sem_close__ - closes a named semaphore
+- __sem_post__ - unlocks a semaphore == the value of the semaphore is incremented
+- __sem_wait__ - locks a semaphore
+- __sem_unlink__ - remove a named semaphore
 
 ### Semaphore usage
 
