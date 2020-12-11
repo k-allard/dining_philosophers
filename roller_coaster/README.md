@@ -3,7 +3,7 @@
 
 - Semaphore is used to represent the number of places in the car (3)    
 - When a visitor jumps in a number of vacant places (semaphore value) decreases :arrow_down:  
-- When a visitor finishes the ride, number of vacant places (semaphore value) increases by one :arrow_up:  
+- When a visitor finishes the ride (it takes 3 sec), number of vacant places (semaphore value) increases :arrow_up:  
 - The next visitor can jump in :arrow_heading_down:  
 - The smulation finished when all 10 of visitors have taken the ride :white_check_mark:
 
