@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 21:29:03 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/10 23:30:01 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/11 10:27:54 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void		print_status(t_action action, t_philo *philo)
 	actions[SLEEPING] = " is sleeping\n";
 	actions[THINKING] = " is thinking\n";
 	actions[DIED] = " is dead\n";
-	actions[TAKEN_FORK_LEFT] = " has taken a fork Left\n";
-	actions[TAKEN_FORK_RIGHT] = " has taken a fork Rigth\n";
+	actions[TAKEN_FORK_LEFT] = " has taken a fork\n";
+	actions[TAKEN_FORK_RIGHT] = " has taken a fork\n";
 	time = time_passed(philo->setup->start) / 1000;
 	pthread_mutex_lock(&(philo->setup->writing));
 	if (!philo->setup->one_died && philo->setup->count_eating_philos > 0)

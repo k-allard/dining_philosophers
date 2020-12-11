@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:19:47 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/11 09:38:52 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/11 10:25:46 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,5 @@ int			main(int argc, char **argv)
 	init_philo_structs(philos, &setup);
 	launch_philos(&setup, philos);
 	finishing(&setup, philos);
+	return (SUCCESS);
 }
