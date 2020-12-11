@@ -5,7 +5,7 @@
 - When a visitor jumps in a number of vacant places (semaphore value) decreases :arrow_down:  
 - When a visitor finishes the ride (it takes 3 sec), number of vacant places (semaphore value) increases :arrow_up:  
 - The next visitor can jump in :arrow_heading_down:  
-- The smulation finished when all 10 of visitors have taken the ride :white_check_mark:
+- The simulation finishes when all 10 have taken a ride :white_check_mark:
 
 To compile && run type ``make`` in this directory
 
