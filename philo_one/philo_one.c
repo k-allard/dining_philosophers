@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:19:47 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/10 23:30:47 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/11 09:38:52 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,12 @@ int			main(int argc, char **argv)
 {
 	t_setup	setup;
 	t_philo	*philos;
-	int		i;
 
 	check_args(argc, argv);
 	init_setup_struct(&setup, argc, argv);
-	gettimeofday(&setup.start, NULL);
-	setup.start.tv_usec = (setup.start.tv_usec / 1000) * 1000;
 	philos = malloc(sizeof(t_philo) * setup.num_of_philos);
-	i = 0;
-	while (i < setup.num_of_philos)
-		pthread_mutex_init(&(setup.forks[i++]), NULL);
+	if (!philos)
+		malloc_error();
 	init_philo_structs(philos, &setup);
 	launch_philos(&setup, philos);
 	finishing(&setup, philos);

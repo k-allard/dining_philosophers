@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:01:14 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/10 23:11:21 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/11 09:39:42 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,29 @@
 
 void		init_setup_struct(t_setup *setup, int argc, char **argv)
 {
+	int	i;
+
 	setup->num_of_philos = ft_atoi(argv[1]);
 	setup->time_to_die = ft_atoi(argv[2]) * 1000;
 	setup->time_to_eat = ft_atoi(argv[3]) * 1000;
 	setup->time_to_sleep = ft_atoi(argv[4]) * 1000;
 	setup->max_eat_cycles = argc == 6 ? ft_atoi(argv[5]) : 0;
 	setup->forks = malloc(sizeof(pthread_mutex_t) * (setup->num_of_philos));
+	if (!setup->forks)
+		malloc_error();
 	setup->one_died = 0;
 	setup->count_eating_philos = setup->num_of_philos;
-	pthread_mutex_init(&(setup->writing), NULL);
-	pthread_mutex_init(&(setup->decreasing_count_eating_philos), NULL);
+	if (pthread_mutex_init(&setup->writing, NULL))
+		init_error();
+	if (pthread_mutex_init(&setup->decreasing_count_eating_philos, NULL))
+		init_error();
+	i = 0;
+	while (i < setup->num_of_philos)
+		if (pthread_mutex_init(&setup->forks[i++], NULL))
+			init_error();
+	if (gettimeofday(&setup->start, NULL))
+		init_error();
+	setup->start.tv_usec = (setup->start.tv_usec / 1000) * 1000;
 }
 
 void		init_philo_structs2(t_philo *philos, t_setup *setup)
@@ -65,8 +78,10 @@ void		init_philo_structs(t_philo *philos, t_setup *setup)
 		philos[i].next_event_time = 0;
 		philos[i].expected_dead_time = philos[i].last_dinner_time + \
 										setup->time_to_die + 800;
-		pthread_mutex_init(&(philos[i].eating), NULL);
-		pthread_mutex_init(&(philos[i].wait_dead), NULL);
+		if (pthread_mutex_init(&philos[i].eating, NULL))
+			init_error();
+		if (pthread_mutex_init(&philos[i].wait_dead, NULL))
+			init_error();
 		i++;
 	}
 	init_philo_structs2(philos, setup);
