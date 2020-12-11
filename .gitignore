@@ -20,6 +20,13 @@ cmake-build-debug/
 /.vscode/
 philo_one.dSYM/
 philo_one/a.out
-cesar_test/
-rchalie_test/
 philo_one/.idea/
+philo_one/.vscode
+philo_one/philo_one.dSYM
+philo_one/philo_one
+philo_one/*.o
+philo_two/.idea/
+philo_two/.vscode
+philo_two/philo_two.dSYM
+philo_two/philo_two
+philo_two/*.o

@@ -14,9 +14,6 @@
 
 static void	wait_eat_cycles(t_setup *setup)
 {
-	int i;
-
-	i = 0;
 	while (setup->count_eating_philos > 0)
 	{
 		if (setup->one_died == 0)

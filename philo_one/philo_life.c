@@ -55,9 +55,9 @@ void	eating(t_philo *philo)
 	if (philo->setup->max_eat_cycles && philo->num_of_dinners >= \
 										philo->setup->max_eat_cycles)
 	{
-		pthread_mutex_lock(&(philo->setup->decreasing_count_eating_philos));
+		pthread_mutex_lock(&philo->setup->decreasing_count_eating_philos);
 		philo->setup->count_eating_philos--;
-		pthread_mutex_unlock(&(philo->setup->decreasing_count_eating_philos));
+		pthread_mutex_unlock(&philo->setup->decreasing_count_eating_philos);
 	}
 	wait_me(philo->next_event_time, philo->setup);
 	philo->next_event_time = philo->next_event_time + \
@@ -70,7 +70,7 @@ void	*philo_entry_function(void *argument)
 	t_philo	*philo;
 
 	philo = argument;
-	pthread_create(&(philo->supervisor), NULL, &supervisor_function, argument);
+	pthread_create(&philo->supervisor, NULL, &supervisor_function, argument);
 	while (42 && !philo->setup->one_died && \
 			philo->setup->count_eating_philos > 0)
 	{

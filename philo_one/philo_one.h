@@ -119,6 +119,7 @@ char				*ft_itoa(int n);
 int					ft_atoi(char *str);
 int					ft_strlen(char *str);
 void				ft_putnbr(int n);
+
 /*
 ** ERRORS
 */
