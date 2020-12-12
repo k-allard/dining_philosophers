@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:15:59 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/11 11:05:00 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/12 20:11:54 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,11 @@ static void	wait_eat_cycles(t_setup *setup)
 			break ;
 	}
 	if (setup->count_eating_philos <= 0)
-	{
-		pthread_mutex_lock(&(setup->writing));
+	// {
+	// 	sem_wait(setup->sem_for_writing);
 		write(1, "Each philo has eaten enough times.\n", 35);
-		pthread_mutex_unlock(&(setup->writing));
-	}
+		// sem_post(setup->sem_for_writing);
+	// }
 }
 
 static void	wait_one_died(t_setup *setup)
@@ -41,9 +41,7 @@ static void	clean(t_setup *setup, t_philo *philos)
 
 	i = 0;
 	free(philos);
-	while (i < setup->num_of_philos)
-		pthread_mutex_destroy(&(setup->forks[i++]));
-	free(setup->forks);
+	sem_close(setup->sem_for_all_forks);
 }
 
 int			finishing(t_setup *setup, t_philo *philos)

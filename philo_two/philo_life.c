@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 22:59:05 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/11 11:05:07 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/12 20:24:25 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,20 @@
 
 void	unlock_forks(t_philo *philo)
 {
-	pthread_mutex_unlock(&philo->eating);
-	pthread_mutex_unlock(philo->left_fork);
-	pthread_mutex_unlock(philo->right_fork);
+	sem_post(philo->sem_for_eating);
+	sem_post(philo->setup->sem_for_all_forks);
+	sem_post(philo->setup->sem_for_all_forks);
 }
 
 void	lock_forks(t_philo *philo)
 {
-	if (!(philo->index % 2))
-	{
-		pthread_mutex_lock(philo->right_fork);
-		print_status(TAKEN_FORK_RIGHT, philo);
-		pthread_mutex_lock(philo->left_fork);
-		pthread_mutex_lock(&philo->eating);
-		philo->last_dinner_time = \
-				(time_passed(philo->setup->start) / 1000) * 1000;
-		print_status(TAKEN_FORK_LEFT, philo);
-	}
-	else
-	{
-		pthread_mutex_lock(philo->left_fork);
-		print_status(TAKEN_FORK_LEFT, philo);
-		pthread_mutex_lock(philo->right_fork);
-		pthread_mutex_lock(&philo->eating);
-		philo->last_dinner_time = \
-				(time_passed(philo->setup->start) / 1000) * 1000;
-		print_status(TAKEN_FORK_RIGHT, philo);
-	}
+	sem_wait(philo->setup->sem_for_all_forks);
+	print_status(TAKEN_FORK_RIGHT, philo);
+	sem_wait(philo->setup->sem_for_all_forks);
+	sem_wait(philo->sem_for_eating);
+	philo->last_dinner_time = \
+			(time_passed(philo->setup->start) / 1000) * 1000;
+	print_status(TAKEN_FORK_LEFT, philo);
 }
 
 void	eating(t_philo *philo)
@@ -55,9 +42,9 @@ void	eating(t_philo *philo)
 	if (philo->setup->max_eat_cycles && philo->num_of_dinners >= \
 										philo->setup->max_eat_cycles)
 	{
-		pthread_mutex_lock(&philo->setup->decreasing_count_eating_philos);
+		sem_wait(philo->setup->sem_for_decreasing_count_eating_philos);
 		philo->setup->count_eating_philos--;
-		pthread_mutex_unlock(&philo->setup->decreasing_count_eating_philos);
+		sem_post(philo->setup->sem_for_decreasing_count_eating_philos);
 	}
 	wait_me(philo->next_event_time, philo->setup);
 	philo->next_event_time = philo->next_event_time + \

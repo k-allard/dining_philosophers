@@ -1,6 +1,6 @@
-NAME = philo_one
+NAME = philo_two
 
-SRCS = philo_one.c \
+SRCS = philo_two.c \
 		utils.c \
 		inits.c \
 		launch.c \

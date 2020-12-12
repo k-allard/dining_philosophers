@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 21:29:03 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/11 11:05:27 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/12 20:27:13 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static void	died(t_philo *philo, uint64_t time)
 	philo->is_dead = 1;
 	philo->setup->one_died = 1;
 	philo->actions[DIED] = 1;
-	pthread_mutex_lock(&philo->setup->writing);
+	sem_wait(philo->setup->sem_for_writing);
 	write_died_status(time / 1000, philo->index, " died\n");
-	pthread_mutex_unlock(&philo->setup->writing);
+	sem_post(philo->setup->sem_for_writing);
 }
 
 void		print_status(t_action action, t_philo *philo)
@@ -45,7 +45,7 @@ void		print_status(t_action action, t_philo *philo)
 	actions[TAKEN_FORK_LEFT] = " has taken a fork Left\n";
 	actions[TAKEN_FORK_RIGHT] = " has taken a fork Rigth\n";
 	time = time_passed(philo->setup->start) / 1000;
-	pthread_mutex_lock(&(philo->setup->writing));
+	sem_wait(philo->setup->sem_for_writing);
 	if (!philo->setup->one_died && philo->setup->count_eating_philos > 0)
 	{
 		ft_putnbr(time);
@@ -53,7 +53,7 @@ void		print_status(t_action action, t_philo *philo)
 		ft_putnbr(philo->index);
 		write(1, actions[action], ft_strlen(actions[action]));
 	}
-	pthread_mutex_unlock(&(philo->setup->writing));
+	sem_post(philo->setup->sem_for_writing);
 }
 
 /*
@@ -74,15 +74,15 @@ void		*supervisor_function(void *argument)
 		last_number_of_dinners = philo->num_of_dinners;
 		wait_me(philo->expected_dead_time, philo->setup);
 		time = time_passed(philo->setup->start);
-		pthread_mutex_lock(&philo->eating);
+		sem_wait(philo->sem_for_eating);
 		if (!philo->setup->one_died && philo->setup->count_eating_philos > 0 \
 			&& last_number_of_dinners == philo->num_of_dinners)
 		{
 			died(philo, time);
-			pthread_mutex_unlock(&philo->eating);
+			sem_post(philo->sem_for_eating);
 			break ;
 		}
-		pthread_mutex_unlock(&philo->eating);
+		sem_post(philo->sem_for_eating);
 	}
 	return (NULL);
 }

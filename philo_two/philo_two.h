@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:35:41 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/11 10:23:57 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/12 19:45:09 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <semaphore.h>
+# include <fcntl.h>
+# include <sys/stat.h>
 
 # define SUCCESS	0
 # define ERROR		1
@@ -42,9 +45,9 @@ typedef struct		s_setup
 	uint64_t		time_to_eat;
 	uint64_t		time_to_sleep;
 	int				max_eat_cycles;
-	pthread_mutex_t	*forks;
-	pthread_mutex_t	writing;
-	pthread_mutex_t decreasing_count_eating_philos;
+	sem_t			*sem_for_all_forks;
+	sem_t			*sem_for_writing;
+	sem_t			*sem_for_decreasing_count_eating_philos;
 	struct timeval	start;
 	int				count_eating_philos;
 	int				one_died;
@@ -61,12 +64,8 @@ typedef struct		s_philo
 	uint64_t		expected_dead_time;
 	int				is_eating;
 	int				is_dead;
-	pthread_mutex_t eating;
-	pthread_mutex_t	*left_fork;
-	pthread_mutex_t	*right_fork;
-	pthread_mutex_t	wait_dead;
-	unsigned int	left_hand;
-	unsigned int	right_hand;
+	sem_t			*sem_for_eating;
+	sem_t			*sem_for_wait_dead;
 	pthread_t		thread_id;
 	pthread_t		supervisor;
 }					t_philo;
