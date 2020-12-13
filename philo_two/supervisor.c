@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 21:29:03 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/12 20:27:13 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/13 14:56:42 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,17 @@ static void	write_died_status(int time, int index, char *status)
 
 static void	died(t_philo *philo, uint64_t time)
 {
+	int i;
+	
 	philo->is_dead = 1;
 	philo->setup->one_died = 1;
 	philo->actions[DIED] = 1;
 	sem_wait(philo->setup->sem_for_writing);
 	write_died_status(time / 1000, philo->index, " died\n");
 	sem_post(philo->setup->sem_for_writing);
+	i = philo->setup->num_of_philos;
+	while (i--)
+		sem_post(philo->setup->sem_for_all_forks);
 }
 
 void		print_status(t_action action, t_philo *philo)
@@ -42,8 +47,8 @@ void		print_status(t_action action, t_philo *philo)
 	actions[SLEEPING] = " is sleeping\n";
 	actions[THINKING] = " is thinking\n";
 	actions[DIED] = " is dead\n";
-	actions[TAKEN_FORK_LEFT] = " has taken a fork Left\n";
-	actions[TAKEN_FORK_RIGHT] = " has taken a fork Rigth\n";
+	actions[TAKEN_FORK_LEFT] = " has taken a fork 2\n";
+	actions[TAKEN_FORK_RIGHT] = " has taken a fork 1\n";
 	time = time_passed(philo->setup->start) / 1000;
 	sem_wait(philo->setup->sem_for_writing);
 	if (!philo->setup->one_died && philo->setup->count_eating_philos > 0)
