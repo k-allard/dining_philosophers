@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:15:59 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/12 20:11:54 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:34:14 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,7 @@ static void	wait_eat_cycles(t_setup *setup)
 			break ;
 	}
 	if (setup->count_eating_philos <= 0)
-	// {
-	// 	sem_wait(setup->sem_for_writing);
 		write(1, "Each philo has eaten enough times.\n", 35);
-		// sem_post(setup->sem_for_writing);
-	// }
 }
 
 static void	wait_one_died(t_setup *setup)

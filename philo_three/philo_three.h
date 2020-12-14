@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:35:41 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 16:16:34 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:31:15 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,6 @@ void				malloc_error(void);
 ** FINISHING
 */
 
-int					finishing(t_setup *setup, t_philo *philos);
-
+void				finishing(t_setup *setup);
+void				clean(t_setup *setup, t_philo *philos);
 #endif

@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:19:47 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 15:13:16 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:31:34 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			main(int argc, char **argv)
 {
 	t_setup	setup;
 	t_philo	*philos;
-	
+
 	check_args(argc, argv);
 	init_setup_struct(&setup, argc, argv);
 	philos = malloc(sizeof(t_philo) * setup.num_of_philos);
@@ -68,6 +68,8 @@ int			main(int argc, char **argv)
 		malloc_error();
 	init_philo_structs(philos, &setup);
 	starting(philos, &setup);
-	finishing(&setup, philos);
+	finishing(&setup);
+	write(1, "Simulation has ended.\n", 23);
+	clean(&setup, philos);
 	return (SUCCESS);
 }

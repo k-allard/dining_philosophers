@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:01:14 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/13 14:43:59 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:35:22 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 static void	open_semaphores(t_setup *setup)
 {
-	setup->sem_for_all_forks = sem_open("/forks", O_CREAT, S_IRWXU, setup->num_of_philos);
+	setup->sem_for_all_forks = \
+					sem_open("/forks", O_CREAT, S_IRWXU, setup->num_of_philos);
 	if (setup->sem_for_all_forks == SEM_FAILED)
 		init_error();
 	sem_unlink("/forks");
@@ -22,7 +23,8 @@ static void	open_semaphores(t_setup *setup)
 	if (setup->sem_for_writing == SEM_FAILED)
 		init_error();
 	sem_unlink("/writing");
-	setup->sem_for_decreasing_count_eating_philos = sem_open("/decreasing", O_CREAT, S_IRWXU, 1);
+	setup->sem_for_decreasing_count_eating_philos = \
+					sem_open("/decreasing", O_CREAT, S_IRWXU, 1);
 	if (setup->sem_for_decreasing_count_eating_philos == SEM_FAILED)
 		init_error();
 	sem_unlink("/decreasing");
@@ -30,8 +32,6 @@ static void	open_semaphores(t_setup *setup)
 
 void		init_setup_struct(t_setup *setup, int argc, char **argv)
 {
-	// int	i;
-
 	setup->num_of_philos = ft_atoi(argv[1]);
 	setup->time_to_die = ft_atoi(argv[2]) * 1000;
 	setup->time_to_eat = ft_atoi(argv[3]) * 1000;
@@ -56,11 +56,13 @@ static void	init_philo_structs2(t_philo *philos, t_setup *setup)
 		j = 0;
 		while (j < 10)
 			philos[i].actions[j++] = 0;
-		philos[i].sem_for_eating = sem_open("/eating", O_CREAT, S_IRWXU, 1);
+		philos[i].sem_for_eating = \
+								sem_open("/eating", O_CREAT, S_IRWXU, 1);
 		if (philos[i].sem_for_eating == SEM_FAILED)
 			init_error();
 		sem_unlink("/eating");
-		philos[i].sem_for_wait_dead = sem_open("/wait_dead", O_CREAT, S_IRWXU, 1);
+		philos[i].sem_for_wait_dead = \
+								sem_open("/wait_dead", O_CREAT, S_IRWXU, 1);
 		if (philos[i].sem_for_wait_dead == SEM_FAILED)
 			init_error();
 		sem_unlink("/wait_dead");

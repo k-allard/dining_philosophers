@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 21:29:03 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/13 14:56:42 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:34:31 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	write_died_status(int time, int index, char *status)
 static void	died(t_philo *philo, uint64_t time)
 {
 	int i;
-	
+
 	philo->is_dead = 1;
 	philo->setup->one_died = 1;
 	philo->actions[DIED] = 1;
