@@ -55,6 +55,10 @@ test4: re
 	@echo "\x1b[33m [4 310 200 100] - a philo should die!\x1b[0m"
 	@./${NAME} 4 310 200 100
 
+test_extra: re
+	@echo "\x1b[33m [3 650 200 200] - no one should die!\x1b[0m"
+	@./${NAME} 3 650 200 200
+
 %.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@
 
