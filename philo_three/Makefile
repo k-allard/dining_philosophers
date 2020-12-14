@@ -44,7 +44,7 @@ test1: re
 	@./${NAME} 5 800 200 200
 
 test2: re
-	@echo "\x1b[33m [5 800 200 200 4] - no one should die and the simulation should stop when all has eaten 2 times each!\x1b[0m"
+	@echo "\x1b[33m [5 800 200 200 4] - no one should die and the simulation should stop when all has eaten 4 times each!\x1b[0m"
 	@./${NAME} 5 800 200 200 4
 
 test3: re
@@ -54,9 +54,6 @@ test3: re
 test4: re
 	@echo "\x1b[33m [4 310 200 100] - a philo should die!\x1b[0m"
 	@./${NAME} 4 310 200 100
-
-test_extra: re
-	@./${NAME} 3 300 100 100
 
 %.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@
