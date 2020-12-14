@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:01:14 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 12:55:45 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 16:16:14 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void		init_philo_structs(t_philo *philos, t_setup *setup)
 		philos[i].index = i + 1;
 		philos[i].setup = setup;
 		philos[i].is_dead = 0;
+		philos[i].max_eat_cycles = setup->max_eat_cycles;
 		philos[i].num_of_dinners = 0;
 		philos[i].last_dinner_time = start_time;
 		philos[i].next_event_time = 0;

@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 22:59:05 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 12:56:07 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:07:27 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,10 @@ void	*philo_entry_function(void *argument)
 			philo->setup->count_eating_philos > 0)
 	{
 		eating(philo);
-		if (philo->setup->one_died || philo->setup->count_eating_philos <= 0)
+		if (philo->setup->one_died)
+			break ;
+		if ((philo->max_eat_cycles && \
+			philo->num_of_dinners >= philo->max_eat_cycles))
 			break ;
 		print_status(SLEEPING, philo);
 		wait_me(philo->next_event_time, philo->setup);

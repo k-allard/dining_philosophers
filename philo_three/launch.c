@@ -6,13 +6,13 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:27:18 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 13:36:12 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 15:01:30 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_three.h"
 
-void	launch_philos(t_setup *setup, t_philo *philo, pid_t	*p_ids, int num)
+void	launch_philos(t_philo *philo, pid_t	*p_ids, int num)
 {
 	pid_t	pid;
 	

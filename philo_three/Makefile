@@ -44,8 +44,8 @@ test1: re
 	@./${NAME} 5 800 200 200
 
 test2: re
-	@echo "\x1b[33m [5 800 200 200 7] - no one should die and the simulation should stop when all has eaten 7 times each!\x1b[0m"
-	@./${NAME} 5 800 200 200 2
+	@echo "\x1b[33m [5 800 200 200 4] - no one should die and the simulation should stop when all has eaten 2 times each!\x1b[0m"
+	@./${NAME} 5 800 200 200 4
 
 test3: re
 	@echo "\x1b[33m [4 410 200 200] - no one should die!\x1b[0m"

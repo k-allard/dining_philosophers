@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:35:41 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 12:55:40 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 16:16:34 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <semaphore.h>
 # include <fcntl.h>
 # include <sys/stat.h>
+# include <sys/types.h> 
+# include <signal.h>
 
 # define SUCCESS	0
 # define ERROR		1
@@ -59,6 +61,7 @@ typedef struct		s_philo
 {
 	int				index;
 	int				num_of_dinners;
+	int				max_eat_cycles;
 	t_setup			*setup;
 	int				actions[10];
 	uint64_t		last_dinner_time;
@@ -91,7 +94,8 @@ uint64_t			time_passed(struct timeval start);
 ** LAUNCH
 */
 
-void				launch_philos(t_setup *setup, t_philo *philo, pid_t	*p_ids, int num);
+void				launch_philos(t_philo *philo, pid_t	*p_ids, int num);
+
 /*
 ** PHILO_LIFE
 */

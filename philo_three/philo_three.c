@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:19:47 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 13:35:07 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 15:13:16 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,14 @@ void		starting(t_philo *philos, t_setup *setup)
 	while (++i < setup->num_of_philos)
 	{
 		if (!(i % 2))
-			launch_philos(setup, &philos[i], p_ids, i);
+			launch_philos(&philos[i], p_ids, i);
 	}
-	usleep(1000);
+	usleep(100);
 	i = -1;
 	while (++i < setup->num_of_philos)
 	{
 		if (i % 2)
-			launch_philos(setup, &philos[i], p_ids, i);
+			launch_philos(&philos[i], p_ids, i);
 	}
 	setup->p_ids = p_ids;
 }
