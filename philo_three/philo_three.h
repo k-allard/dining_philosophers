@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:35:41 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 17:31:15 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:37:17 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include <semaphore.h>
 # include <fcntl.h>
 # include <sys/stat.h>
-# include <sys/types.h> 
+# include <sys/types.h>
 # include <signal.h>
 
 # define SUCCESS	0
