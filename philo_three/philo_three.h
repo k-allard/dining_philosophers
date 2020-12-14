@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_two.h                                        :+:      :+:    :+:   */
+/*   philo_three.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:35:41 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 11:12:43 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 12:55:40 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_TWO_H
-# define PHILO_TWO_H
+#ifndef PHILO_THREE_H
+# define PHILO_THREE_H
 
 # include <unistd.h>
 # include <pthread.h>
@@ -51,6 +51,8 @@ typedef struct		s_setup
 	struct timeval	start;
 	int				count_eating_philos;
 	int				one_died;
+	pid_t			*p_ids;
+
 }					t_setup;
 
 typedef struct		s_philo
@@ -66,7 +68,6 @@ typedef struct		s_philo
 	int				is_dead;
 	sem_t			*sem_for_eating;
 	sem_t			*sem_for_wait_dead;
-	pid_t			p_id;
 	pthread_t		supervisor;
 }					t_philo;
 
@@ -90,8 +91,7 @@ uint64_t			time_passed(struct timeval start);
 ** LAUNCH
 */
 
-void				launch_philos(t_setup *setup, t_philo *philo, int num);
-
+void				launch_philos(t_setup *setup, t_philo *philo, pid_t	*p_ids, int num);
 /*
 ** PHILO_LIFE
 */

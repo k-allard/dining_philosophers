@@ -6,11 +6,11 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 22:59:05 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 11:19:30 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 12:56:07 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_three.h"
 
 void	unlock_forks(t_philo *philo)
 {
@@ -68,5 +68,6 @@ void	*philo_entry_function(void *argument)
 		wait_me(philo->next_event_time, philo->setup);
 		print_status(THINKING, philo);
 	}
+	exit(1);
 	return (NULL);
 }

@@ -6,11 +6,11 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:39:51 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/11 11:04:57 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 12:55:31 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_three.h"
 
 void	init_error(void)
 {

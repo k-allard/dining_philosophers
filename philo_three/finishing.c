@@ -6,11 +6,11 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:15:59 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/12 20:11:54 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 12:55:56 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_three.h"
 
 static void	wait_eat_cycles(t_setup *setup)
 {
@@ -46,18 +46,27 @@ static void	clean(t_setup *setup, t_philo *philos)
 
 int			finishing(t_setup *setup, t_philo *philos)
 {
-	int	i;
-
-	if (setup->max_eat_cycles)
-		wait_eat_cycles(setup);
-	else
-		wait_one_died(setup);
-	i = -1;
-	while (++i < setup->num_of_philos)
+	int	
+	while (i < simulation->number_of_philosopher)
 	{
-		pthread_join(philos[i].supervisor, NULL);
-		pthread_join(philos[i].thread_id, NULL);
+		waitpid(-1, &status, 0);
+		if ((WIFEXITED(status) || WIFSIGNALED(status)))
+		{
+			if ((status_value = WEXITSTATUS(status)) == 0)	//death
+			{
+				while (i < simulation->number_of_philosopher)
+				{
+					if (i != simulation->number_of_philosopher)
+						kill(simulation->philos_pid[i], SIGTERM);
+					i++;
+				}
+				break ;
+			}
+			else if (status_value == 1)
+				i++;
+		}
 	}
+	return (__SUCCESS);
 	write(1, "Simulation has ended.\n", 22);
 	clean(setup, philos);
 	return (0);

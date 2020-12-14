@@ -6,11 +6,11 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 21:37:59 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/11 11:05:30 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 12:56:15 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_three.h"
 
 uint64_t	time_passed(struct timeval start)
 {

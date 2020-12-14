@@ -15,3 +15,8 @@ __pthread_detach__, __pthread_join__, __sem_open__, __sem_close__, __sem_post__,
 ### Semaphore usage
 
 Go to my :arrow_right: [roller coaster problem solution](https://github.com/k-allard/dining_philosophers/tree/main/roller_coaster) to see the simplest example of semaphore usage
+
+## :star: How philos' processes are launched
+philo_three.c: ``main()`` --> ``starting()`` -->  
+launch.c: ``launch_philos()`` -->  
+philo_life.c: ``philo_entry_function()``

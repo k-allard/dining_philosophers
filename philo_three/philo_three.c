@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_two.c                                        :+:      :+:    :+:   */
+/*   philo_three.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:19:47 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 11:14:16 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 12:55:49 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_three.h"
 
 static void	check_args(int argc, char **argv)
 {
@@ -33,11 +33,33 @@ static void	check_args(int argc, char **argv)
 	}
 }
 
+pid_t		*starting(t_philo *philos, t_setup *setup)
+{
+	int		i;
+	pid_t	*p_ids;
+
+	if (!(p_ids = malloc(sizeof(pid_t) * setup->num_of_philos)))
+		malloc_error();
+	i = -1;
+	while (++i < setup->num_of_philos)
+	{
+		if (!(i % 2))
+			launch_philos(setup, &philos[i], p_ids, i);
+	}
+	usleep(1000);
+	i = -1;
+	while (++i < setup->num_of_philos)
+	{
+		if (i % 2)
+			launch_philos(setup, &philos[i], p_ids, i);
+	}
+	return(p_ids);
+}
+
 int			main(int argc, char **argv)
 {
 	t_setup	setup;
 	t_philo	*philos;
-	int		i;
 	
 	check_args(argc, argv);
 	init_setup_struct(&setup, argc, argv);
@@ -45,19 +67,7 @@ int			main(int argc, char **argv)
 	if (!philos)
 		malloc_error();
 	init_philo_structs(philos, &setup);
-	i = -1;
-	while (++i < setup.num_of_philos)
-	{
-		if (!(i % 2))
-			launch_philos(&setup, &philos[i], i);
-	}
-	usleep(1000);
-	i = -1;
-	while (++i < setup.num_of_philos)
-	{
-		if (i % 2)
-			launch_philos(&setup, &philos[i], i);
-	}
+	starting();
 	finishing(&setup, philos);
 	return (SUCCESS);
 }

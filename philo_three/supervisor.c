@@ -6,11 +6,11 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 21:29:03 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/13 14:56:42 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 12:56:00 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_three.h"
 
 static void	write_died_status(int time, int index, char *status)
 {
@@ -33,6 +33,7 @@ static void	died(t_philo *philo, uint64_t time)
 	i = philo->setup->num_of_philos;
 	while (i--)
 		sem_post(philo->setup->sem_for_all_forks);
+	exit(0);
 }
 
 void		print_status(t_action action, t_philo *philo)

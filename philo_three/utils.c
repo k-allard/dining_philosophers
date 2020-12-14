@@ -6,11 +6,11 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:39:15 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/11 11:05:32 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 12:56:18 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo_two.h"
+#include "philo_three.h"
 
 static int	ft_digits(int n)
 {
