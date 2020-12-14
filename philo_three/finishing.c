@@ -14,9 +14,6 @@
 
 void		clean(t_setup *setup, t_philo *philos)
 {
-	int i;
-
-	i = 0;
 	free(philos);
 	sem_close(setup->sem_for_all_forks);
 }
