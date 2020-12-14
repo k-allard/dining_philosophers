@@ -23,7 +23,11 @@ memset, malloc, free, write, __fork__, __kill__, exit, pthread_create, pthread_d
 
 Go to my :arrow_right: [roller coaster problem solution](https://github.com/k-allard/dining_philosophers/tree/main/roller_coaster) to see the simplest example of semaphore usage
 
-## :star: How philos' processes are launched
-philo_three.c: ``main()`` --> ``starting()`` -->  
-launch.c: ``launch_philos()`` -->  
-philo_life.c: ``philo_entry_function()``
+## :star: How philos' processes are handled  
+### Launch:
+philo_three.c:	``main()`` --> ``starting()`` -->  
+launch.c:		``launch_philos()`` -->  
+philo_life.c:	``philo_entry_function()``  
+### Ending:
+finishing.c:	in ``finishing()`` ``waitpid()`` function suspends the calling process until a child process ends or is stopped. The 1st argument (pid) is -1, so waitpid() waits for any child process to end.
+

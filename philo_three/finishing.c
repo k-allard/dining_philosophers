@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:15:59 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 12:55:56 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 14:54:23 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,22 @@ static void	clean(t_setup *setup, t_philo *philos)
 
 int			finishing(t_setup *setup, t_philo *philos)
 {
-	int	
-	while (i < simulation->number_of_philosopher)
+	int		i;
+	int		status;
+	int		status_value;
+
+	i = 0;
+	while (i < setup->num_of_philos)
 	{
 		waitpid(-1, &status, 0);
 		if ((WIFEXITED(status) || WIFSIGNALED(status)))
 		{
 			if ((status_value = WEXITSTATUS(status)) == 0)	//death
 			{
-				while (i < simulation->number_of_philosopher)
+				while (i < setup->num_of_philos)
 				{
-					if (i != simulation->number_of_philosopher)
-						kill(simulation->philos_pid[i], SIGTERM);
+					if (i != setup->num_of_philos)
+						kill(setup->p_ids[i], SIGTERM);
 					i++;
 				}
 				break ;
@@ -65,8 +69,10 @@ int			finishing(t_setup *setup, t_philo *philos)
 			else if (status_value == 1)
 				i++;
 		}
-	}
-	return (__SUCCESS);
+	}	
+	i = -1;
+	while (++i < setup->num_of_philos)
+		pthread_join(philos[i].supervisor, NULL);
 	write(1, "Simulation has ended.\n", 22);
 	clean(setup, philos);
 	return (0);

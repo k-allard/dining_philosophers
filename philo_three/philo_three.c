@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:19:47 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 12:55:49 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 13:35:07 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	check_args(int argc, char **argv)
 	}
 }
 
-pid_t		*starting(t_philo *philos, t_setup *setup)
+void		starting(t_philo *philos, t_setup *setup)
 {
 	int		i;
 	pid_t	*p_ids;
@@ -53,7 +53,7 @@ pid_t		*starting(t_philo *philos, t_setup *setup)
 		if (i % 2)
 			launch_philos(setup, &philos[i], p_ids, i);
 	}
-	return(p_ids);
+	setup->p_ids = p_ids;
 }
 
 int			main(int argc, char **argv)
@@ -67,7 +67,7 @@ int			main(int argc, char **argv)
 	if (!philos)
 		malloc_error();
 	init_philo_structs(philos, &setup);
-	starting();
+	starting(philos, &setup);
 	finishing(&setup, philos);
 	return (SUCCESS);
 }
