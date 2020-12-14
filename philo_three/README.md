@@ -1,8 +1,15 @@
 # :fork_and_knife: Dining philosophers problem
-### _with threads and :vertical_traffic_light: semaphore_
+### _with philosophers being distinct processes_  
+_and all the forks being in the middle of the table_
+
 ## :star: Permitted functions :  
-__memset__, malloc, free, write, __usleep__, __gettimeofday__, __pthread_create__, 
-__pthread_detach__, __pthread_join__, __sem_open__, __sem_close__, __sem_post__, __sem_wait__, __sem_unlink__
+memset, malloc, free, write, __fork__, __kill__, exit, pthread_create, pthread_detach, pthread_join, usleep, gettimeofday, __waitpid__, sem_open, sem_close, sem_post, sem_wait, sem_unlink
+
+## :star: Processes
+
+- __fork__ - 
+- __kill__ - 
+- __waitpid__ - 
 
 ## :star: Semaphores
 
