@@ -6,7 +6,7 @@
 /*   By: kallard <kallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 23:15:59 by kallard           #+#    #+#             */
-/*   Updated: 2020/12/14 17:31:09 by kallard          ###   ########.fr       */
+/*   Updated: 2020/12/14 17:49:33 by kallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void		clean(t_setup *setup, t_philo *philos)
 {
 	free(philos);
+	free(setup->p_ids);
 	sem_close(setup->sem_for_all_forks);
 }
 
